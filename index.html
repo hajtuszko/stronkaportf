@@ -77,22 +77,30 @@ button{font:inherit;color:inherit}
 input,textarea{font-family:'JetBrains Mono',monospace}
 input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px solid #ff3340;outline-offset:2px}
 @media (max-width:640px){
-  .hdr{padding-top:8px!important;padding-bottom:0!important;row-gap:0!important}
-  .topnav{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;gap:0 20px!important;font-size:12px!important;width:100%;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(90deg,#000 80%,transparent);mask-image:linear-gradient(90deg,#000 80%,transparent);padding-right:24px}
-  .topnav::-webkit-scrollbar{display:none}
-  .topnav a{flex:none;padding:12px 0!important}
+  .hdr{padding-top:8px!important;padding-bottom:8px!important;flex-wrap:nowrap!important}
+  header .menubtn{display:inline-flex}
+  .topnav{display:none!important;position:absolute;left:0;right:0;top:100%;flex-direction:column;flex-wrap:nowrap!important;gap:0!important;padding:4px 16px 16px;background:#0c0c0d;border-bottom:1px solid #2a2a2c;font-size:15px!important}
+  .menu-open .topnav{display:flex!important}
+  .scrim.menu-open{display:block}
+  .topnav a{padding:16px 0!important;border-bottom:1px solid #1f1f21}
+  .topnav a:last-child{border-bottom:0}
+  .topnav .navl:after{display:none}
   .sep{display:none}
-  .hero{display:grid!important;grid-template-columns:minmax(0,1fr);align-content:center;gap:26px!important;min-height:calc(100vh - 94px);min-height:calc(100svh - 94px);padding-top:32px!important;padding-bottom:40px!important}
+  .hero{display:grid!important;grid-template-columns:minmax(0,1fr);align-content:center;gap:26px!important;min-height:calc(100vh - 61px);min-height:calc(100svh - 61px);padding-top:32px!important;padding-bottom:40px!important}
   .hero-txt{display:contents!important}
-  .hero .ph{order:-1;width:176px;max-width:none!important;margin-bottom:6px}
-  .hero .ph .fr{inset:10px -10px -10px 10px!important}
-  .hero-meta{font-size:12px!important;gap:8px 10px!important}
-  .hero-meta .badge{padding:4px 8px!important}
-  .hero-h1{font-size:40px!important}
+  .hero .ph{display:none!important}
+  .hero-meta{font-size:10px!important;gap:6px 8px!important}
+  .hero-meta .badge{padding:3px 6px!important}
+  .hero-h1{font-size:48px!important}
   .hero-cta{gap:12px!important}
   .hero-cta a{padding:0 20px!important;min-height:52px!important;font-size:16px!important}
 }
 @media (hover:none){.card .open{opacity:1;transform:none}}
+.scrim{display:none;position:fixed;left:0;right:0;top:61px;bottom:0;z-index:39;background:rgba(8,8,9,.6)}
+.menubtn{display:none;align-items:center;gap:12px;min-height:44px;padding:0 14px;border:1px solid #3b3b3e;background:none;color:#ecebea;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.menuico{position:relative;width:16px;height:10px;border-top:2px solid #ecebea;border-bottom:2px solid #ecebea;box-sizing:border-box;transition:transform .2s}
+.menu-open .menuico{height:0;border-bottom:0;transform:rotate(45deg)}
+.menu-open .menuico:after{content:'';position:absolute;left:0;right:0;top:-2px;border-top:2px solid #ecebea;transform:rotate(-90deg)}
 .jump{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid #3b3b3e;background:none;color:#ecebea;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em;transition:border-color .2s,color .2s}
 .jump:hover{border-color:var(--ac,#ff3340);color:var(--ac,#ff3340)}
 .jump b{font-weight:400;color:#a8a8ad;margin-right:8px}
@@ -103,10 +111,11 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
   <div class="prog" aria-hidden="true"></div>
 
   <!-- NAV -->
-  <header style="position:sticky; top:0; z-index:40; background:rgba(12,12,13,.72); backdrop-filter:blur(14px); border-bottom:1px solid #1f1f21">
+  <header class="{{ menuCls }}" style="position:sticky; top:0; z-index:40; background:rgba(12,12,13,.72); backdrop-filter:blur(14px); border-bottom:1px solid #1f1f21">
     <div class="wrap hdr" style="padding-top:14px; padding-bottom:14px; display:flex; flex-wrap:wrap; gap:4px 32px; align-items:center; justify-content:space-between">
       <a href="#top" style="font-weight:800; font-size:20px; letter-spacing:-0.02em; padding:10px 0">Patryk Malarczyk<span style="color:{{accent}}">.</span></a>
-      <nav class="topnav" aria-label="{{ t.navLabel }}" style="display:flex; flex-wrap:wrap; gap:0 28px; font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em">
+      <button class="menubtn" type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuOpen }}" aria-controls="topnav">{{ menuLabel }}<span class="menuico" aria-hidden="true"></span></button>
+      <nav id="topnav" class="topnav" onClick="{{ closeMenu }}" aria-label="{{ t.navLabel }}" style="display:flex; flex-wrap:wrap; gap:0 28px; font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em">
         <a class="navl" href="#tools" style="padding:14px 0">{{ t.navTools }}</a>
         <a class="navl" href="#services" style="padding:14px 0">{{ t.navServices }}</a>
         <a class="navl" href="#studio" style="padding:14px 0">{{ t.navStudio }}</a>
@@ -116,6 +125,7 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
       </nav>
     </div>
   </header>
+  <div class="scrim {{ menuCls }}" onClick="{{ closeMenu }}" aria-hidden="true"></div>
 
   <!-- HERO -->
   <section id="top" style="position:relative; overflow:hidden">
@@ -557,7 +567,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = {
-      openId: null, role: -1, wPost: false, wTalk: false,
+      openId: null, role: -1, wPost: false, wTalk: false, menu: false,
       name: '', mail: '', msg: '', status: '', sending: false, sent: '' // '' | 'form' | 'mail'
     };
   }
@@ -568,6 +578,7 @@ class Component extends DCLogic {
 
     // Esc closes a breakdown, the arrows go to the previous / next one
     this._onKey = (e) => {
+      if (e.key === 'Escape' && this.state.menu) { this.setState({ menu: false }); return; }
       if (this.state.openId === null) return;
       if (e.key === 'Escape') { this.setState({ openId: null }); return; }
       if (/INPUT|TEXTAREA|SELECT/.test((e.target && e.target.tagName) || '')) return;
@@ -575,6 +586,10 @@ class Component extends DCLogic {
       else if (e.key === 'ArrowLeft') move(-1);
     };
     window.addEventListener('keydown', this._onKey);
+    this._onDocClick = (e) => {
+      if (this.state.menu && !(e.target && e.target.closest && e.target.closest('header'))) this.setState({ menu: false });
+    };
+    window.addEventListener('click', this._onDocClick);
 
     // on a phone, a sideways swipe does the same
     this._onTouchStart = (e) => {
@@ -631,6 +646,7 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this._onKey);
+    window.removeEventListener('click', this._onDocClick);
     window.removeEventListener('touchstart', this._onTouchStart);
     window.removeEventListener('touchend', this._onTouchEnd);
     window.removeEventListener('popstate', this._onPop);
@@ -839,6 +855,8 @@ class Component extends DCLogic {
       isOpen, m, mTitle: m.title, mStatus: m.status, mPlatform: m.platform, mMedia: m.media,
       mProblem: m.problem, mSolution: m.solution, mResult: m.result,
       mHasDetails: mDetails.length > 0, mDetails, mHasChapters: mChapters.length > 0, mChapters,
+      menuOpen: !!s.menu, menuCls: s.menu ? 'menu-open' : '', menuLabel: s.menu ? 'Close' : 'Menu',
+      toggleMenu: () => this.setState({ menu: !s.menu }), closeMenu: () => { if (s.menu) this.setState({ menu: false }); },
       postOpen: !!s.wPost, postCls: s.wPost ? 'is-open' : '', togglePost: () => this.setState({ wPost: !s.wPost }),
       talkOpen: !!s.wTalk, talkCls: s.wTalk ? 'is-open' : '', toggleTalk: () => this.setState({ wTalk: !s.wTalk }),
       mHasLink: !!m.link, mLink: m.link || '#', mLinkLabel: m.linkLabel,
