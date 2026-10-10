@@ -74,16 +74,15 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
   .topnav::-webkit-scrollbar{display:none}
   .topnav a{flex:none;padding:12px 0!important}
   .sep{display:none}
-  .hero{display:grid!important;grid-template-columns:92px minmax(0,1fr);gap:22px 18px!important;padding-top:28px!important;padding-bottom:48px!important}
+  .hero{display:grid!important;grid-template-columns:minmax(0,1fr);align-content:center;gap:26px!important;min-height:calc(100vh - 94px);min-height:calc(100svh - 94px);padding-top:32px!important;padding-bottom:40px!important}
   .hero-txt{display:contents!important}
-  .hero-meta{grid-column:2;grid-row:1;align-self:center;font-size:12px!important;gap:6px 10px!important}
+  .hero .ph{order:-1;width:176px;max-width:none!important;margin-bottom:6px}
+  .hero .ph .fr{inset:10px -10px -10px 10px!important}
+  .hero-meta{font-size:12px!important;gap:8px 10px!important}
   .hero-meta .badge{padding:4px 8px!important}
-  .hero-meta .pulse{display:none}
-  .hero .ph{grid-column:1;grid-row:1;align-self:center;width:92px;max-width:none!important}
-  .hero .ph .fr{inset:6px -6px -6px 6px!important}
-  .hero-h1,.hero-lead,.hero-cta{grid-column:1/-1}
+  .hero-h1{font-size:40px!important}
   .hero-cta{gap:12px!important}
-  .hero-cta a{padding:0 20px!important;min-height:50px!important;font-size:16px!important}
+  .hero-cta a{padding:0 20px!important;min-height:52px!important;font-size:16px!important}
 }
 @media (hover:none){.card .open{opacity:1;transform:none}}
 .jump{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid #3b3b3e;background:none;color:#ecebea;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em;transition:border-color .2s,color .2s}
@@ -769,6 +768,10 @@ class Component extends DCLogic {
       ] },
       { title: '3D Designer', meta: 'Resimo · 2023', points: [
         'Interactive real-estate sales software: real-time 3D models of investments.'
+      ] },
+      { title: '3D Artist · Props & Armours', meta: 'Veritas RP · Gothic II mod', points: [
+        'Low-poly props and armours in the style of Gothic for Veritas RP, a mod for Gothic II.',
+        'Props textured only with original Gothic textures, so they match the look of the game.'
       ] }
     ];
     const roles = rolesRaw.map((r, i) => {
