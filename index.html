@@ -97,9 +97,8 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
   </header>
 
   <!-- HERO -->
-  <section id="top" onMouseMove="{{ onHeroMove }}" onMouseLeave="{{ onHeroLeave }}" style="position:relative; overflow:hidden">
+  <section id="top" style="position:relative; overflow:hidden">
     <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size:64px 64px; -webkit-mask-image:linear-gradient(#000 40%,transparent); mask-image:linear-gradient(#000 40%,transparent)"></div>
-    <div aria-hidden="true" style="{{ spotStyle }}"></div>
     <div class="wrap" style="position:relative; padding-top:56px; padding-bottom:64px; display:flex; flex-wrap:wrap; gap:48px 64px; align-items:center">
       <div style="flex:999 1 520px; min-width:0; display:flex; flex-direction:column; gap:24px">
         <div class="up" style="animation-delay:.05s; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">
@@ -517,7 +516,6 @@ class Component extends DCLogic {
     super(props);
     this.state = {
       openId: null, role: 0,
-      mx: null, my: null,
       name: '', mail: '', msg: '', status: '', sending: false, sent: '' // '' | 'form' | 'mail'
     };
   }
@@ -673,18 +671,6 @@ class Component extends DCLogic {
       { label: 'ArtStation', value: '3D art · hajtuszko ↗', href: LINKS.artstation }
     ];
 
-    // hero interactions
-    const pos2 = s.mx === null ? '74% 42%' : s.mx + 'px ' + s.my + 'px';
-    const spotStyle = 'position:absolute; inset:0; pointer-events:none; background:radial-gradient(560px circle at ' + pos2 + ', color-mix(in srgb, ' + accent + ' 20%, transparent), transparent 65%)';
-    const onHeroMove = (e) => {
-      try {
-        const r = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - r.left, y = e.clientY - r.top;
-        this.setState({ mx: Math.round(x), my: Math.round(y) });
-      } catch (err) {}
-    };
-    const onHeroLeave = () => this.setState({ mx: null, my: null });
-
     // contact form: Formspree/Netlify endpoint if set, otherwise the visitor's email app
     const submit = (e) => {
       if (e && e.preventDefault) e.preventDefault();
@@ -713,7 +699,6 @@ class Component extends DCLogic {
     return {
       accent, t, links: LINKS, email: EMAIL,
       proof, tools, services, engagement, roles, stack, contactRows,
-      spotStyle, onHeroMove, onHeroLeave,
       isOpen, m, mTitle: m.title, mStatus: m.status, mPlatform: m.platform, mMedia: m.media,
       mProblem: m.problem, mSolution: m.solution, mResult: m.result,
       mHasDetails: !!(m.details && m.details.length), mDetails: m.details || [],
