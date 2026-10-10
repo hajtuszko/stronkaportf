@@ -407,6 +407,20 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
             </div>
           </dl>
         </div>
+        <sc-if value="{{ mHasDetails }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(440px,100%), 1fr)); gap:36px 64px; border-top:1px solid #2a2a2c; padding-top:32px">
+            <sc-for list="{{ mDetails }}" as="d" hint-placeholder-count="5">
+              <div style="display:flex; flex-direction:column; gap:14px">
+                <h4 style="margin:0; font-family:'JetBrains Mono',monospace; font-weight:400; font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:{{accent}}">{{ d.head }}</h4>
+                <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px">
+                  <sc-for list="{{ d.points }}" as="b" hint-placeholder-count="4">
+                    <li style="display:flex; gap:14px; font-size:17px; line-height:1.55; color:#c9c9ce; text-wrap:pretty"><span aria-hidden="true" style="flex:none; width:8px; height:8px; margin-top:10px; background:{{accent}}"></span><span>{{ b }}</span></li>
+                  </sc-for>
+                </ul>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
         <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; border-top:1px solid #2a2a2c; padding-top:24px">
           <button class="btn btn2" onClick="{{ prev }}" style="min-height:48px; padding:0 24px; background:none; border:1px solid #6e6e74; cursor:pointer; font-weight:600; font-size:16px">← {{ t.prev }}</button>
           <button class="btn" onClick="{{ next }}" style="min-height:48px; padding:0 24px; background:{{accent}}; color:#0c0c0d; border:0; cursor:pointer; font-weight:600; font-size:16px">{{ t.next }} →</button>
@@ -539,13 +553,45 @@ class Component extends DCLogic {
     ];
 
     const all = [
-      { title: 'Axis Interior', platform: 'Unreal Engine 5.6 · C++ · Python tests', status: 'In production',
+      { title: 'Axis Interior ’n Biomes', platform: 'Unreal Engine 5.6 · C++ · 3 plugins · Python tests', status: 'In production',
         media: '[ demo video · AxisInteriorTest ]', video: './assets/axis-interior.mp4', poster: './assets/axis-interior-poster.jpg',
         mediaAlt: 'Axis Interior demo in Unreal Engine 5.6: rooms and corridors sketched by hand and built from modular assets, a corridor widened and a segment deleted, four biomes in a production level built up layer by layer (lamps, decals, wear, flowers, blood, drawings, post-process), then an auto-generated layout with level-design analyses',
-        pitch: 'Build, analyse and generate game interiors from modular assets, with the level designer in control.',
+        pitch: 'An Unreal Engine 5.6 editor mode for game interiors: build them from modular assets, dress them, analyse them like a level designer, generate layouts from a start and goals, then grow a biome toward each goal. The designer stays in control at every step.',
         problem: 'Blocking out interiors by hand is slow, and nothing tells the designer where a level will bore, confuse or trap the player until somebody playtests it.',
-        solution: 'An editor toolkit with three layers. Building: corridors and rooms from modular walls, cornices, ceilings and beams. Analysis: long straights against a 7-second rule, sight lines and blind corners, dead ends, loops and chase routes, readability and landmarks. Generation: a start, goals and a tension curve become scored layout variants that the designer edits, then biomes and set dressing grow toward each goal.',
-        result: 'A playable layout and its weak spots in one pass, instead of after the first playtest. Every stage is covered by automated headless tests in the editor.',
+        solution: 'Three plugins (editor, runtime and biomes) behind one editor mode that covers the whole loop: build, dress, analyse, generate and grow biomes. It started as a port of my Blender tool and is now a C++ toolkit. The same seed always gives the same level.',
+        result: 'A playable layout and its weak spots in one pass, instead of after the first playtest. In our production project, a plan for five goals up to about 165 m away generates in 0.9 s. Every stage is covered by automated headless tests in the editor.',
+        details: [
+          { head: 'Build', points: [
+            'Corridors as graphs: per-segment widths, one-sided widenings, closed ends and doors into rooms.',
+            'Rooms from chains of modular walls, with doors, pilasters, beams and raised ceilings.',
+            'A 2D plan: two clicks sketch a room, dragging a wall resizes it, clicking it adds a door. Analyses already run on the plan, and Build plan turns it into modules.',
+            'A plan library: save a layout and load it into another level without overwriting anything already built.'
+          ] },
+          { head: 'Dress', points: [
+            'Decorations by zones and styles, every placement seeded; manual overrides survive a rebuild.',
+            'Lamps with real lights: colour, shadows, broken and flickering lamps, and the flicker carries into the game.',
+            'Decals and wear: streaks under cornices, marks where paintings hung, cobwebs in corners, dust and rubble along the floor.',
+            'Floors with UVs continuous across rooms and corridors, rugs that break at junctions and doors, furniture between lamps that keeps a clear walkway, and a hero prop at each dead end.'
+          ] },
+          { head: 'Analyse', points: [
+            'Routes from the start to every goal (A*, pulled tight) and the 7-second rule for straights that run too long.',
+            'Space graph and chase: dead ends, loops, choke points, and a monster marker that shows where it would cut the player off.',
+            'Visibility from 72 rays per sample: blind corners, long sight lines and heat maps of exposure and tightness.',
+            'Rhythm along each route (tight, medium, open; monotony and chaos) drawn as a graph in the viewport, plus readability: decision points, déjà vu and landmarks.'
+          ] },
+          { head: 'Generate', points: [
+            'Each goal gets a scenario: a sequence of beats such as hook, build-up, reveal, relief, branch, escape loop and climax, taken from recipes like Chase, Exploration or Calm before the storm, so every route ends differently.',
+            'Tension rises in a saw-tooth with breathers, and route length follows walking time: two minutes is about 144 m.',
+            'Layouts come from my Dungeon Generator, ported 1:1 to C++. Twenty candidates are scored on maze metrics and on how well each route matches its scenario; the best becomes an editable 2D plan.',
+            'Rooms drawn by hand stay put and are routed around; generating again replaces only what the generator drew.'
+          ] },
+          { head: 'Biomes', points: [
+            'Each goal can have a biome: plants (UE Foliage) in bands along corridor walls on the way to it, denser and taller closer to the goal.',
+            'A biome dresses its own route: decoration pools that change from start to goal, pinned decals and ground under the plants.',
+            'Glowing plants and decals that breathe, lamps that die out toward the goal, spore clouds, blood dripping from the ceiling and a Post Process area per biome.',
+            'Plants follow corridor edits by themselves, and their in-game cost was tuned after measuring the production level.'
+          ] }
+        ],
         link: '', linkLabel: '' },
       { title: 'Axis Rupture', platform: 'Blender 4.2+ · Python', status: 'Open source',
         media: '[ before / after · 16:10 ]', video: './assets/axis-rupture.mp4', poster: './assets/axis-rupture-poster.jpg',
@@ -670,6 +716,7 @@ class Component extends DCLogic {
       spotStyle, onHeroMove, onHeroLeave,
       isOpen, m, mTitle: m.title, mStatus: m.status, mPlatform: m.platform, mMedia: m.media,
       mProblem: m.problem, mSolution: m.solution, mResult: m.result,
+      mHasDetails: !!(m.details && m.details.length), mDetails: m.details || [],
       mHasLink: !!m.link, mLink: m.link || '#', mLinkLabel: m.linkLabel,
       mNum: m.num, mTotal: String(all.length).padStart(2, '0'),
       close: () => this.setState({ openId: null }), prev: step(-1), next: step(1),
