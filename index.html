@@ -252,12 +252,20 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
         <h2 style="margin:0; font-weight:800; font-size:clamp(38px,5vw,72px); letter-spacing:-0.03em; line-height:1">{{ t.writingTitle }}</h2>
         <p style="margin:0; font-size:19px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.writingLead }}</p>
       </div>
-      <a class="feat" href="{{ links.linkedinPosts }}" target="_blank" rel="noopener" style="flex:2 1 520px; border:1px solid #2f2f31; background:#0c0c0d; padding:40px; display:flex; flex-direction:column; gap:20px">
-        <span style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ t.postMeta }}</span>
-        <span style="font-weight:800; font-size:clamp(28px,3vw,42px); letter-spacing:-0.025em; line-height:1.05">{{ t.postTitle }}</span>
-        <span style="font-size:18px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.postBody }}</span>
-        <span class="ftxt" style="font-weight:600; font-size:17px; color:{{accent}}">{{ t.postCta }}</span>
-      </a>
+      <div style="flex:2 1 520px; min-width:0; display:flex; flex-direction:column; gap:24px">
+        <a class="feat" href="{{ links.linkedinPosts }}" target="_blank" rel="noopener" style="border:1px solid #2f2f31; background:#0c0c0d; padding:40px; display:flex; flex-direction:column; gap:20px">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ t.postMeta }}</span>
+          <span style="font-weight:800; font-size:clamp(28px,3vw,42px); letter-spacing:-0.025em; line-height:1.05">{{ t.postTitle }}</span>
+          <span style="font-size:18px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.postBody }}</span>
+          <span class="ftxt" style="font-weight:600; font-size:17px; color:{{accent}}">{{ t.postCta }}</span>
+        </a>
+        <div style="border:1px solid #2f2f31; background:#0c0c0d; padding:40px; display:flex; flex-direction:column; gap:20px">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ t.talkMeta }}</span>
+          <span style="font-weight:800; font-size:clamp(28px,3vw,42px); letter-spacing:-0.025em; line-height:1.05">{{ t.talkTitle }}</span>
+          <span style="font-size:18px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.talkBody }}</span>
+          <span style="font-weight:600; font-size:17px; color:{{accent}}">{{ t.talkTakeaway }}</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -493,13 +501,17 @@ const COPY = {
   gameDesc: 'Toy-plane dogfights in a backyard: fly as pilot or gunner, customise your aircraft, take on missions or friends in multiplayer. Unity, toon-shaded art, modular environments.',
   gameCta: 'Wishlist on Steam ↗',
   gameMediaAlt: 'Battle of BackYard: a P-38 toy plane flying through a living room',
-  writingEyebrow: 'Writing',
+  writingEyebrow: 'Writing & talks',
   writingTitle: 'Notes on coherence',
-  writingLead: 'I write about why game worlds feel alive or fake, and what tools and tech change about it.',
+  writingLead: 'I write and speak about why game worlds feel alive or fake, and what tools and tech change about it.',
   postMeta: 'LinkedIn · 6,400+ impressions',
   postTitle: 'Why did gamers hate DLSS 5 so much?',
   postBody: 'Graphics ran ahead of everything else. A world reads as alive when lighting, animation, physics and sound speak the same language. Coherence > realism.',
   postCta: 'Read on LinkedIn ↗',
+  talkMeta: 'Talk · Pyrkon & CD-Action Expo · in Polish',
+  talkTitle: 'From idea to immersion: designing the world of Veritas in Gothic II',
+  talkBody: 'Given with another artist from the Veritas RP team. How we designed the city of Veritas and its people to feel alive: a world with its own rules and a coherent structure, the right detail in the right place, such as dirt and seams on clothing, and immersion built step by step from concept art through modelling to texturing.',
+  talkTakeaway: 'A good detail, in the right place.',
   bgEyebrow: 'Background',
   bgTitle: 'From architecture to tech art',
   bgLead: 'I studied architecture and urban planning with a focus on monument conservation: reading space, researching references, respecting the original. Then came five years of real-time 3D production, from environments and modular kits to optimisation and the tools that make it all faster.',
@@ -763,19 +775,19 @@ class Component extends DCLogic {
         'Modular kits and set pieces for fast level building; multiplayer level design.',
         'Production documentation (GDD) and editor tools for the team, including Axis Interior.'
       ] },
-      { title: '3D Designer', meta: 'YSLAB · 2022 – 2023 and 2025 – present', points: [
-        'Interactive real-estate mockups in Unity: buildings, terrain and surroundings modelled from technical drawings.',
-        'UVs, texture atlases, PBR materials and LODs for real-time performance.',
-        'A growing library of street furniture and vegetation.',
-        'Blender tools for the team: one-click curb generator, Geometry Nodes placement of lamps and trees along roads, naming and instancing utilities.'
+      { title: '3D Designer', meta: 'Resimo · 2025 – present', points: [
+        'Tools that optimise the team’s workflow, among them Blender tools: a one-click curb generator, Geometry Nodes placement of lamps and trees along roads, naming and instancing utilities.',
+        'Interactive real-estate sales software: real-time 3D models of investments.'
       ] },
       { title: '3D Artist · Props & Armours', meta: 'Veritas RP · Gothic II Online · 2025 – 2026', points: [
         'Low-poly props and armours in the style of Gothic for Veritas RP, a Polish roleplay server for Gothic II Online built by a volunteer team.',
         'Props textured only with original Gothic textures, so they match the look of the game.',
         'Presented the mod at Pyrkon and CD-Action Expo, including a talk on immersion I gave with another artist from the team.'
       ], link: 'https://veritas-rp.pl/', linkLabel: 'veritas-rp.pl' },
-      { title: '3D Designer', meta: 'Resimo · 2023', points: [
-        'Interactive real-estate sales software: real-time 3D models of investments.'
+      { title: '3D Designer', meta: 'YSLAB · 2022 – 2023', points: [
+        'Interactive real-estate mockups in Unity: buildings, terrain and surroundings modelled from technical drawings.',
+        'UVs, texture atlases, PBR materials and LODs for real-time performance.',
+        'A growing library of street furniture and vegetation.'
       ] }
     ];
     const roles = rolesRaw.map((r, i) => {
