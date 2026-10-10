@@ -49,7 +49,7 @@ button{font:inherit;color:inherit}
 .wbody>div{overflow:hidden;min-height:0}
 .wcard.is-open .wbody{grid-template-rows:1fr}
 .wcard.is-open .wico{transform:rotate(45deg)}
-@media (hover:hover){.wcard:hover .wbody{grid-template-rows:1fr}.wcard:hover .wico{transform:rotate(45deg)}}
+@media (hover:hover){.wcard:hover .wbody{grid-template-rows:1fr;transition-delay:.15s}.wcard:hover .wico{transform:rotate(45deg);transition-delay:.15s}}
 .svc{transition:border-color .25s}
 .svc:hover{border-color:var(--ac,#ff3340)}
 .proof{transition:color .2s}
@@ -310,17 +310,17 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
 
       <div style="flex:2 1 520px; min-width:0; align-self:flex-start; border-top:1px solid #2a2a2c">
         <sc-for list="{{ roles }}" as="r" hint-placeholder-count="3">
-          <div style="border-bottom:1px solid #2a2a2c">
+          <div class="wcard {{ r.cls }}" style="border-bottom:1px solid #2a2a2c">
             <button class="acc" onClick="{{ r.toggle }}" aria-expanded="{{ r.open }}">
               <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#a8a8ad; min-width:28px">{{ r.num }}</span>
               <span style="flex:1; display:flex; flex-direction:column; gap:8px">
                 <span class="accT" style="font-weight:600; font-size:clamp(22px,2.6vw,34px); letter-spacing:-0.02em; line-height:1.15">{{ r.title }}</span>
                 <span style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.04em; color:{{accent}}">{{ r.meta }}</span>
               </span>
-              <span aria-hidden="true" style="{{ r.iconStyle }}">+</span>
+              <span class="wico" aria-hidden="true">+</span>
             </button>
-            <sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
-              <ul class="pop" style="margin:0 0 32px 52px; padding:0; list-style:none; display:flex; flex-direction:column; gap:14px; max-width:660px">
+            <div class="wbody"><div>
+              <ul style="margin:0 0 32px 52px; padding:0; list-style:none; display:flex; flex-direction:column; gap:14px; max-width:660px">
                 <sc-for list="{{ r.points }}" as="b" hint-placeholder-count="4">
                   <li style="display:flex; gap:14px; font-size:18px; line-height:1.55; color:#c9c9ce; text-wrap:pretty"><span aria-hidden="true" style="flex:none; width:8px; height:8px; margin-top:11px; background:{{accent}}"></span><span>{{ b }}</span></li>
                 </sc-for>
@@ -328,7 +328,7 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
                   <li style="padding-left:22px"><a class="lnk" href="{{ r.linkHref }}" target="_blank" rel="noopener" style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:.04em; color:#ecebea; border-bottom:1px solid {{accent}}; padding-bottom:2px">{{ r.linkLabel }} ↗</a></li>
                 </sc-if>
               </ul>
-            </sc-if>
+            </div></div>
           </div>
         </sc-for>
       </div>
@@ -564,7 +564,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = {
-      openId: null, role: 0, wPost: false, wTalk: false,
+      openId: null, role: -1, wPost: false, wTalk: false,
       name: '', mail: '', msg: '', status: '', sending: false, sent: '' // '' | 'form' | 'mail'
     };
   }
@@ -782,7 +782,7 @@ class Component extends DCLogic {
         'Modular kits and set pieces for fast level building; multiplayer level design.',
         'Production documentation (GDD) and editor tools for the team, including Axis Interior.'
       ] },
-      { title: '3D Designer', meta: 'Resimo · 2025 – present', points: [
+      { title: '3D Designer · Tool Developer', meta: 'Resimo · 2025 – present', points: [
         'Tools that optimise the team’s workflow, among them Blender tools: a one-click curb generator, Geometry Nodes placement of lamps and trees along roads, naming and instancing utilities.',
         'Interactive real-estate sales software: real-time 3D models of investments.'
       ] },
@@ -802,8 +802,7 @@ class Component extends DCLogic {
       return {
         ...r, num: String(i + 1).padStart(2, '0'), open,
         hasLink: !!r.link, linkHref: r.link || '#', linkLabel: r.linkLabel || '',
-        toggle: () => this.setState({ role: open ? -1 : i }),
-        iconStyle: 'font-family:JetBrains Mono,monospace; font-size:28px; line-height:1; color:' + accent + '; transition:transform .25s; transform:rotate(' + (open ? 45 : 0) + 'deg)'
+        cls: open ? 'is-open' : '', toggle: () => this.setState({ role: open ? -1 : i })
       };
     });
     const stack = ['Blender · Python · Geometry Nodes', 'Unreal Engine 5 · C++ · Python', 'Unity', 'Substance Painter', 'Photoshop', 'Quadspinner Gaea', 'RealityCapture', 'Git'];
