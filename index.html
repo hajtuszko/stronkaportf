@@ -42,6 +42,14 @@ button{font:inherit;color:inherit}
 .feat:hover{border-color:var(--ac,#ff3340)}
 .feat .ftxt{transition:transform .2s}
 .feat:hover .ftxt{transform:translateX(6px)}
+.wttl{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;width:100%;color:inherit}
+.wttl:focus-visible{outline:2px solid #ff3340;outline-offset:4px}
+.wico{flex:none;margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:28px;line-height:1;color:var(--ac,#ff3340);transition:transform .25s}
+.wbody{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.wbody>div{overflow:hidden;min-height:0}
+.wcard.is-open .wbody{grid-template-rows:1fr}
+.wcard.is-open .wico{transform:rotate(45deg)}
+@media (hover:hover){.wcard:hover .wbody{grid-template-rows:1fr}.wcard:hover .wico{transform:rotate(45deg)}}
 .svc{transition:border-color .25s}
 .svc:hover{border-color:var(--ac,#ff3340)}
 .proof{transition:color .2s}
@@ -253,17 +261,16 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
         <p style="margin:0; font-size:19px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.writingLead }}</p>
       </div>
       <div style="flex:2 1 520px; min-width:0; display:flex; flex-direction:column; gap:24px">
-        <a class="feat" href="{{ links.linkedinPosts }}" target="_blank" rel="noopener" style="border:1px solid #2f2f31; background:#0c0c0d; padding:40px; display:flex; flex-direction:column; gap:20px">
+        <div class="feat wcard {{ postCls }}" style="border:1px solid #2f2f31; background:#0c0c0d; padding:40px; display:flex; flex-direction:column; gap:16px">
           <span style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ t.postMeta }}</span>
-          <span style="font-weight:800; font-size:clamp(28px,3vw,42px); letter-spacing:-0.025em; line-height:1.05">{{ t.postTitle }}</span>
-          <span style="font-size:18px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.postBody }}</span>
-          <span class="ftxt" style="font-weight:600; font-size:17px; color:{{accent}}">{{ t.postCta }}</span>
-        </a>
-        <div style="border:1px solid #2f2f31; background:#0c0c0d; padding:40px; display:flex; flex-direction:column; gap:20px">
+          <button class="wttl" type="button" onClick="{{ togglePost }}" aria-expanded="{{ postOpen }}"><span style="font-weight:800; font-size:clamp(28px,3vw,42px); letter-spacing:-0.025em; line-height:1.05">{{ t.postTitle }}</span><span class="wico" aria-hidden="true">+</span></button>
+          <div class="wbody"><div><p style="margin:0; padding-top:4px; font-size:18px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.postBody }}</p></div></div>
+          <a class="ftxt" href="{{ links.linkedinPosts }}" target="_blank" rel="noopener" style="align-self:flex-start; font-weight:600; font-size:17px; color:{{accent}}">{{ t.postCta }}</a>
+        </div>
+        <div class="feat wcard {{ talkCls }}" style="border:1px solid #2f2f31; background:#0c0c0d; padding:40px; display:flex; flex-direction:column; gap:16px">
           <span style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ t.talkMeta }}</span>
-          <span style="font-weight:800; font-size:clamp(28px,3vw,42px); letter-spacing:-0.025em; line-height:1.05">{{ t.talkTitle }}</span>
-          <span style="font-size:18px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.talkBody }}</span>
-          <span style="font-weight:600; font-size:17px; color:{{accent}}">{{ t.talkTakeaway }}</span>
+          <button class="wttl" type="button" onClick="{{ toggleTalk }}" aria-expanded="{{ talkOpen }}"><span style="font-weight:800; font-size:clamp(28px,3vw,42px); letter-spacing:-0.025em; line-height:1.05">{{ t.talkTitle }}</span><span class="wico" aria-hidden="true">+</span></button>
+          <div class="wbody"><div style="display:flex; flex-direction:column; gap:16px"><p style="margin:0; padding-top:4px; font-size:18px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.talkBody }}</p><p style="margin:0; font-weight:600; font-size:17px; color:{{accent}}">{{ t.talkTakeaway }}</p></div></div>
         </div>
       </div>
     </div>
@@ -557,7 +564,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = {
-      openId: null, role: 0,
+      openId: null, role: 0, wPost: false, wTalk: false,
       name: '', mail: '', msg: '', status: '', sending: false, sent: '' // '' | 'form' | 'mail'
     };
   }
@@ -838,6 +845,8 @@ class Component extends DCLogic {
       isOpen, m, mTitle: m.title, mStatus: m.status, mPlatform: m.platform, mMedia: m.media,
       mProblem: m.problem, mSolution: m.solution, mResult: m.result,
       mHasDetails: mDetails.length > 0, mDetails, mHasChapters: mChapters.length > 0, mChapters,
+      postOpen: !!s.wPost, postCls: s.wPost ? 'is-open' : '', togglePost: () => this.setState({ wPost: !s.wPost }),
+      talkOpen: !!s.wTalk, talkCls: s.wTalk ? 'is-open' : '', toggleTalk: () => this.setState({ wTalk: !s.wTalk }),
       mHasLink: !!m.link, mLink: m.link || '#', mLinkLabel: m.linkLabel,
       mNum: m.num, mTotal: String(all.length).padStart(2, '0'),
       close: () => this.setState({ openId: null }), prev: step(-1), next: step(1),
