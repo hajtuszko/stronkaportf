@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patryk Malarczyk — Technical Artist</title>
+<meta name="description" content="Technical Artist (Tools &amp; Optimization) and co-founder of Orion Belt Games. Unreal and Blender tools for building coherent game worlds.">
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0c0c0d;}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding-left:clamp(16px,4vw,32px);padding-right:clamp(16px,4vw,32px);box-sizing:border-box}
+.lnk{transition:color .2s}
+.lnk:hover{color:var(--ac,#ff3340)}
+.navl{position:relative}
+.navl:after{content:'';position:absolute;left:0;right:0;bottom:4px;height:1px;background:var(--ac,#ff3340);transform:scaleX(0);transform-origin:0 50%;transition:transform .25s}
+.navl:hover:after{transform:scaleX(1)}
+.btn{transition:transform .2s, background .2s, color .2s, border-color .2s}
+.btn:hover{transform:translateY(-3px)}
+.btn2:hover{border-color:var(--ac,#ff3340);color:var(--ac,#ff3340)}
+.card{display:flex;flex-direction:column;gap:16px;width:100%;padding:0;margin:0;border:0;background:none;text-align:left;cursor:pointer}
+.card .media{position:relative;overflow:hidden;aspect-ratio:16/10;border:1px solid #2f2f31;transition:border-color .25s, transform .25s}
+.card .mi{position:absolute;inset:0;background:repeating-linear-gradient(135deg,#161617 0 14px,#1b1b1c 14px 28px);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:13px;color:#a8a8ad;text-transform:uppercase;letter-spacing:.06em;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.card:hover .mi{transform:scale(1.06)}
+.card:hover .media{border-color:var(--ac,#ff3340);transform:translateY(-4px)}
+.card .ttl{transition:color .2s}
+.card:hover .ttl{color:var(--ac,#ff3340)}
+.card .open{position:absolute;right:12px;bottom:12px;background:var(--ac,#ff3340);color:#0c0c0d;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:8px 12px;transform:translateY(8px);opacity:0;transition:opacity .2s, transform .2s}
+.card:hover .open,.card:focus-visible .open{opacity:1;transform:none}
+.tool{transition:border-color .2s, color .2s}
+.tool:hover{border-color:var(--ac,#ff3340)}
+.feat{transition:border-color .25s}
+.feat:hover{border-color:var(--ac,#ff3340)}
+.feat .ftxt{transition:transform .2s}
+.feat:hover .ftxt{transform:translateX(6px)}
+.svc{transition:border-color .25s}
+.svc:hover{border-color:var(--ac,#ff3340)}
+.proof{transition:color .2s}
+.proof:hover{color:var(--ac,#ff3340)}
+.row{transition:padding .2s}
+.row:hover{padding-left:12px}
+.acc{width:100%;display:flex;align-items:center;gap:24px;padding:28px 0;background:none;border:0;cursor:pointer;text-align:left}
+.acc:hover .accT{color:var(--ac,#ff3340)}
+.accT{transition:color .2s}
+.ph .fr{transition:inset .3s cubic-bezier(.2,.7,.2,1)}
+.ph:hover .fr{inset:6px -6px -6px 6px}
+.scene{perspective:900px}
+.cube{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:spin 20s linear infinite}
+.cube2{position:absolute;inset:25%;transform-style:preserve-3d;animation:spin 12s linear infinite reverse}
+.f,.g{position:absolute;inset:0;border:1.5px solid var(--ac,#ff3340);background:rgba(255,51,64,.05)}
+.f1{transform:translateZ(var(--h))}.f2{transform:rotateY(180deg) translateZ(var(--h))}.f3{transform:rotateY(90deg) translateZ(var(--h))}.f4{transform:rotateY(-90deg) translateZ(var(--h))}.f5{transform:rotateX(90deg) translateZ(var(--h))}.f6{transform:rotateX(-90deg) translateZ(var(--h))}
+.up{animation:up .9s cubic-bezier(.2,.7,.2,1) both}
+.pulse{animation:pulse 1.8s ease-in-out infinite}
+.pop{animation:pop .25s ease-out both}
+.prog{position:fixed;top:0;left:0;right:0;height:3px;background:var(--ac,#ff3340);transform:scaleX(0);transform-origin:0 50%;z-index:60}
+@keyframes spin{from{transform:rotateX(-20deg) rotateY(0deg)}to{transform:rotateX(-20deg) rotateY(360deg)}}
+@keyframes up{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes pop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+@keyframes grow{to{transform:scaleX(1)}}
+@keyframes rv{from{opacity:0;transform:translateY(48px)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+  .rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 35%}
+  .prog{animation:grow linear both;animation-timeline:scroll(root)}
+}
+input,textarea{font-family:'JetBrains Mono',monospace}
+input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px solid #ff3340;outline-offset:2px}
+@media (max-width:640px){
+  .hdr{padding-top:8px!important;padding-bottom:0!important;row-gap:0!important}
+  .topnav{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;gap:0 20px!important;font-size:12px!important;width:100%;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(90deg,#000 80%,transparent);mask-image:linear-gradient(90deg,#000 80%,transparent);padding-right:24px}
+  .topnav::-webkit-scrollbar{display:none}
+  .topnav a{flex:none;padding:12px 0!important}
+  .sep{display:none}
+}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="--ac: {{accent}}; background:#0c0c0d; color:#ecebea; font-family:'Bricolage Grotesque',system-ui,sans-serif; overflow-x:clip">
+  <div class="prog" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <header style="position:sticky; top:0; z-index:40; background:rgba(12,12,13,.72); backdrop-filter:blur(14px); border-bottom:1px solid #1f1f21">
+    <div class="wrap hdr" style="padding-top:14px; padding-bottom:14px; display:flex; flex-wrap:wrap; gap:4px 32px; align-items:center; justify-content:space-between">
+      <a href="#top" style="font-weight:800; font-size:20px; letter-spacing:-0.02em; padding:10px 0">Patryk Malarczyk<span style="color:{{accent}}">.</span></a>
+      <nav class="topnav" aria-label="{{ t.navLabel }}" style="display:flex; flex-wrap:wrap; gap:0 28px; font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em">
+        <a class="navl" href="#tools" style="padding:14px 0">{{ t.navTools }}</a>
+        <a class="navl" href="#services" style="padding:14px 0">{{ t.navServices }}</a>
+        <a class="navl" href="#studio" style="padding:14px 0">{{ t.navStudio }}</a>
+        <a class="navl" href="#writing" style="padding:14px 0">{{ t.navWriting }}</a>
+        <a class="navl" href="#contact" style="padding:14px 0">{{ t.navContact }}</a>
+        <a class="navl" href="{{ links.github }}" target="_blank" rel="noopener" style="padding:14px 0; color:{{accent}}">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" onMouseMove="{{ onHeroMove }}" onMouseLeave="{{ onHeroLeave }}" style="position:relative; overflow:hidden">
+    <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size:64px 64px; -webkit-mask-image:linear-gradient(#000 40%,transparent); mask-image:linear-gradient(#000 40%,transparent)"></div>
+    <div aria-hidden="true" style="{{ spotStyle }}"></div>
+    <div class="wrap" style="position:relative; padding-top:88px; padding-bottom:104px; display:flex; flex-wrap:wrap; gap:72px 64px; align-items:center">
+      <div style="flex:999 1 520px; min-width:0; display:flex; flex-direction:column; gap:36px">
+        <div class="up" style="animation-delay:.05s; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">
+          <span class="pulse" style="width:10px; height:10px; border-radius:50%; background:{{accent}}"></span>
+          <span>{{ t.heroRole }}</span><span class="sep" aria-hidden="true">/</span><span>{{ t.heroStudio }}</span><span style="border:1px solid #3b3b3e; padding:6px 12px; color:#ecebea">{{ t.heroBadge }}</span>
+        </div>
+        <h1 class="up" style="animation-delay:.15s; margin:0; font-weight:800; font-size:clamp(42px, 6vw, 92px); line-height:1; letter-spacing:-0.035em; text-wrap:balance">{{ t.heroTitleA }} <span style="color:{{accent}}">{{ t.heroTitleB }}</span></h1>
+        <p class="up" style="animation-delay:.3s; margin:0; max-width:580px; font-size:20px; line-height:1.5; color:#a8a8ad; text-wrap:pretty">{{ t.heroLead }}</p>
+        <div class="up" style="animation-delay:.45s; display:flex; flex-wrap:wrap; gap:16px">
+          <a class="btn" href="#tools" style="display:inline-flex; align-items:center; min-height:54px; padding:0 30px; background:{{accent}}; color:#0c0c0d; font-weight:600; font-size:17px">{{ t.ctaTools }}</a>
+          <a class="btn btn2" href="#services" style="display:inline-flex; align-items:center; min-height:54px; padding:0 30px; border:1px solid #6e6e74; font-weight:600; font-size:17px">{{ t.ctaWork }}</a>
+        </div>
+      </div>
+
+      <div class="ph up" style="animation-delay:.3s; flex:1 1 280px; max-width:380px; position:relative; z-index:0; isolation:isolate">
+        <img src="./assets/c15e346987d0c5f2a69321f5ff3b2823.jpg" alt="Patryk Malarczyk" style="display:block; width:100%; aspect-ratio:1/1; object-fit:cover; filter:contrast(1.05)">
+        <div class="fr" style="position:absolute; inset:16px -16px -16px 16px; border:2px solid {{accent}}; z-index:-1"></div>
+        <div class="scene" aria-hidden="true" style="position:absolute; left:-44px; bottom:-52px; width:132px; height:132px; z-index:2; --h:66px">
+          <div style="{{ tiltStyle }}; width:100%; height:100%; transform-style:preserve-3d">
+            <div class="cube">
+              <div class="f f1"></div><div class="f f2"></div><div class="f f3"></div><div class="f f4"></div><div class="f f5"></div><div class="f f6"></div>
+              <div class="cube2" style="--h:33px">
+                <div class="f f1"></div><div class="f f2"></div><div class="f f3"></div><div class="f f4"></div><div class="f f5"></div><div class="f f6"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF BAR -->
+  <div style="border-top:1px solid #2a2a2c; border-bottom:1px solid #2a2a2c">
+    <ul class="wrap" aria-label="{{ t.proofLabel }}" style="list-style:none; margin-top:0; margin-bottom:0; padding-top:24px; padding-bottom:24px; display:flex; flex-wrap:wrap; gap:16px 40px; align-items:center">
+      <sc-for list="{{ proof }}" as="pr" hint-placeholder-count="4">
+        <li style="display:flex; align-items:center; gap:14px">
+          <span aria-hidden="true" style="width:10px; height:10px; background:{{accent}}; transform:rotate(45deg); flex:none"></span>
+          <a class="proof" href="{{ pr.href }}" target="{{ pr.target }}" rel="noopener" style="display:flex; flex-direction:column; gap:2px">
+            <span style="font-weight:600; font-size:18px; letter-spacing:-0.01em">{{ pr.label }}</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:#a8a8ad">{{ pr.sub }}</span>
+          </a>
+        </li>
+      </sc-for>
+    </ul>
+  </div>
+
+  <!-- TOOLS -->
+  <section id="tools">
+    <div class="rv wrap" style="padding-top:112px; padding-bottom:128px; display:flex; flex-direction:column; gap:56px">
+      <div style="display:flex; flex-wrap:wrap; gap:28px; align-items:flex-end; justify-content:space-between">
+        <div style="display:flex; flex-direction:column; gap:16px; max-width:760px">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:{{accent}}">01 — {{ t.toolsEyebrow }}</div>
+          <h2 style="margin:0; font-weight:800; font-size:clamp(38px,5vw,72px); letter-spacing:-0.03em; line-height:1">{{ t.toolsTitle }}</h2>
+          <p style="margin:0; font-size:19px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.toolsLead }}</p>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(460px,100%), 1fr)); gap:56px 32px">
+        <sc-for list="{{ tools }}" as="p" hint-placeholder-count="4">
+          <button class="card pop" onClick="{{ p.pick }}" aria-label="{{ p.aria }}">
+            <div class="media">
+              <sc-if value="{{ p.hasVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ p.video }}" poster="{{ p.poster }}" autoplay="" muted="" loop="" playsinline="" preload="metadata" aria-label="{{ p.mediaAlt }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></video></sc-if>
+              <sc-if value="{{ p.hasImage }}" hint-placeholder-val="{{ false }}"><img src="{{ p.image }}" alt="{{ p.mediaAlt }}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></sc-if>
+              <sc-if value="{{ p.noMedia }}" hint-placeholder-val="{{ true }}"><div class="mi">{{ p.media }}</div></sc-if>
+              <span style="position:absolute; left:12px; top:12px; font-family:'JetBrains Mono',monospace; font-size:13px; color:#ecebea; background:rgba(12,12,13,.8); padding:4px 8px">{{ p.num }}</span>
+              <span style="position:absolute; right:12px; top:12px; font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:#0c0c0d; background:#ecebea; padding:4px 8px">{{ p.status }}</span>
+              <span class="open">{{ t.cardOpen }}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; gap:16px; align-items:baseline; flex-wrap:wrap">
+              <h3 class="ttl" style="margin:0; font-weight:600; font-size:26px; letter-spacing:-0.015em">{{ p.title }}</h3>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#a8a8ad">{{ p.platform }}</span>
+            </div>
+            <p style="margin:0; font-size:18px; line-height:1.55; color:#c9c9ce; text-wrap:pretty">{{ p.pitch }}</p>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" style="border-top:1px solid #2a2a2c; background:#111112">
+    <div class="rv wrap" style="padding-top:112px; padding-bottom:128px; display:flex; flex-direction:column; gap:56px">
+      <div style="display:flex; flex-direction:column; gap:16px; max-width:760px">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:{{accent}}">02 — {{ t.svcEyebrow }}</div>
+        <h2 style="margin:0; font-weight:800; font-size:clamp(38px,5vw,72px); letter-spacing:-0.03em; line-height:1">{{ t.svcTitle }}</h2>
+        <p style="margin:0; font-size:19px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.svcLead }}</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(320px,100%), 1fr)); gap:24px">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="3">
+          <div class="svc" style="border:1px solid #2f2f31; background:#0c0c0d; padding:32px; display:flex; flex-direction:column; gap:16px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:{{accent}}">{{ s.num }}</span>
+            <h3 style="margin:0; font-weight:600; font-size:26px; letter-spacing:-0.015em; line-height:1.15">{{ s.title }}</h3>
+            <p style="margin:0; font-size:17px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ s.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:flex; flex-wrap:wrap; gap:32px 64px; align-items:flex-start; border-top:1px solid #2a2a2c; padding-top:40px">
+        <div style="flex:1 1 280px; font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ t.svcHowTitle }}</div>
+        <ul style="flex:2 1 480px; margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:14px">
+          <sc-for list="{{ engagement }}" as="g" hint-placeholder-count="3">
+            <li style="display:flex; gap:14px; font-size:18px; line-height:1.55; color:#ecebea; text-wrap:pretty"><span aria-hidden="true" style="flex:none; width:8px; height:8px; margin-top:11px; background:{{accent}}"></span><span>{{ g }}</span></li>
+          </sc-for>
+        </ul>
+      </div>
+      <div>
+        <a class="btn" href="#contact" style="display:inline-flex; align-items:center; min-height:54px; padding:0 30px; background:{{accent}}; color:#0c0c0d; font-weight:600; font-size:17px">{{ t.svcCta }}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section id="studio" style="border-top:1px solid #2a2a2c">
+    <div class="rv wrap" style="padding-top:112px; padding-bottom:112px; display:flex; flex-direction:column; gap:64px">
+      <div style="display:flex; flex-wrap:wrap; gap:40px 64px; align-items:flex-start">
+        <div style="flex:1 1 360px; display:flex; flex-direction:column; gap:16px">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:{{accent}}">03 — {{ t.studioEyebrow }}</div>
+          <h2 style="margin:0; font-weight:800; font-size:clamp(38px,5vw,72px); letter-spacing:-0.03em; line-height:1">{{ t.studioTitle }}</h2>
+        </div>
+        <div style="flex:1 1 420px; display:flex; flex-direction:column; gap:24px; font-size:19px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">
+          <p style="margin:0">{{ t.studioP1 }}</p>
+          <p style="margin:0">{{ t.studioP2 }}</p>
+        </div>
+      </div>
+
+      <a class="feat" href="{{ links.steam }}" target="_blank" rel="noopener" style="display:flex; flex-wrap:wrap; border:1px solid #2f2f31; background:#111112">
+        <div style="flex:1 1 420px; padding:40px; display:flex; flex-direction:column; justify-content:space-between; gap:40px">
+          <div style="display:flex; align-items:center; gap:12px; font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">
+            <span class="pulse" style="width:10px; height:10px; border-radius:50%; background:{{accent}}"></span>{{ t.gameStatus }}
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <div style="font-weight:800; font-size:clamp(34px,4vw,56px); letter-spacing:-0.03em; line-height:1">Battle of BackYard</div>
+            <div style="font-size:18px; line-height:1.55; color:#a8a8ad; max-width:520px">{{ t.gameDesc }}</div>
+            <div class="ftxt" style="font-weight:600; font-size:17px; color:{{accent}}">{{ t.gameCta }}</div>
+          </div>
+        </div>
+        <div style="flex:1 1 420px; min-height:320px; position:relative; overflow:hidden; background:#161617"><img src="./assets/battle-of-backyard.jpg" alt="{{ t.gameMediaAlt }}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- WRITING -->
+  <section id="writing" style="border-top:1px solid #2a2a2c; background:#111112">
+    <div class="rv wrap" style="padding-top:112px; padding-bottom:112px; display:flex; flex-wrap:wrap; gap:48px 80px; align-items:flex-start">
+      <div style="flex:1 1 360px; display:flex; flex-direction:column; gap:16px">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:{{accent}}">04 — {{ t.writingEyebrow }}</div>
+        <h2 style="margin:0; font-weight:800; font-size:clamp(38px,5vw,72px); letter-spacing:-0.03em; line-height:1">{{ t.writingTitle }}</h2>
+        <p style="margin:0; font-size:19px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.writingLead }}</p>
+      </div>
+      <a class="feat" href="{{ links.linkedinPosts }}" target="_blank" rel="noopener" style="flex:2 1 520px; border:1px solid #2f2f31; background:#0c0c0d; padding:40px; display:flex; flex-direction:column; gap:20px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ t.postMeta }}</span>
+        <span style="font-weight:800; font-size:clamp(28px,3vw,42px); letter-spacing:-0.025em; line-height:1.05">{{ t.postTitle }}</span>
+        <span style="font-size:18px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.postBody }}</span>
+        <span class="ftxt" style="font-weight:600; font-size:17px; color:{{accent}}">{{ t.postCta }}</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- BACKGROUND -->
+  <section id="background" style="border-top:1px solid #2a2a2c">
+    <div class="rv wrap" style="padding-top:112px; padding-bottom:128px; display:flex; flex-wrap:wrap; gap:72px 80px">
+      <div style="flex:1 1 380px; display:flex; flex-direction:column; gap:48px; align-self:flex-start">
+        <div style="display:flex; flex-direction:column; gap:16px">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:{{accent}}">05 — {{ t.bgEyebrow }}</div>
+          <h2 style="margin:0; font-weight:800; font-size:clamp(38px,5vw,72px); letter-spacing:-0.03em; line-height:1">{{ t.bgTitle }}</h2>
+          <p style="margin:0; font-size:19px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ t.bgLead }}</p>
+        </div>
+
+        <figure style="margin:0; border-left:2px solid {{accent}}; padding-left:24px; display:flex; flex-direction:column; gap:12px">
+          <blockquote style="margin:0; font-size:21px; line-height:1.45; font-weight:600; letter-spacing:-0.01em; text-wrap:pretty">{{ t.quote }}</blockquote>
+          <figcaption style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#a8a8ad">{{ t.quoteBy }}</figcaption>
+        </figure>
+
+        <div style="display:flex; flex-direction:column; gap:16px">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ t.stackTitle }}</div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px">
+            <sc-for list="{{ stack }}" as="k" hint-placeholder-count="8">
+              <span class="tool" style="display:inline-flex; align-items:center; min-height:40px; padding:0 14px; font-family:'JetBrains Mono',monospace; font-size:13px; border:1px solid #3b3b3e; color:#ecebea">{{ k }}</span>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ t.eduTitle }}</div>
+          <div style="font-weight:600; font-size:20px; line-height:1.3">{{ t.eduSchool }}</div>
+          <div style="font-size:17px; line-height:1.5; color:#c9c9ce">{{ t.eduDegree }}</div>
+          <div style="font-size:17px; line-height:1.5; color:#c9c9ce">{{ t.eduCourse }}</div>
+        </div>
+      </div>
+
+      <div style="flex:2 1 520px; min-width:0; align-self:flex-start; border-top:1px solid #2a2a2c">
+        <sc-for list="{{ roles }}" as="r" hint-placeholder-count="3">
+          <div style="border-bottom:1px solid #2a2a2c">
+            <button class="acc" onClick="{{ r.toggle }}" aria-expanded="{{ r.open }}">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#a8a8ad; min-width:28px">{{ r.num }}</span>
+              <span style="flex:1; display:flex; flex-direction:column; gap:8px">
+                <span class="accT" style="font-weight:600; font-size:clamp(22px,2.6vw,34px); letter-spacing:-0.02em; line-height:1.15">{{ r.title }}</span>
+                <span style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.04em; color:{{accent}}">{{ r.meta }}</span>
+              </span>
+              <span aria-hidden="true" style="{{ r.iconStyle }}">+</span>
+            </button>
+            <sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
+              <ul class="pop" style="margin:0 0 32px 52px; padding:0; list-style:none; display:flex; flex-direction:column; gap:14px; max-width:660px">
+                <sc-for list="{{ r.points }}" as="b" hint-placeholder-count="4">
+                  <li style="display:flex; gap:14px; font-size:18px; line-height:1.55; color:#c9c9ce; text-wrap:pretty"><span aria-hidden="true" style="flex:none; width:8px; height:8px; margin-top:11px; background:{{accent}}"></span><span>{{ b }}</span></li>
+                </sc-for>
+              </ul>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="border-top:1px solid #2a2a2c; background:#111112">
+    <div class="rv wrap" style="padding-top:112px; padding-bottom:128px; display:flex; flex-wrap:wrap; gap:72px 80px">
+      <div style="flex:1 1 440px; display:flex; flex-direction:column; gap:40px">
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em">
+          <span style="color:{{accent}}">06 — {{ t.contactEyebrow }}</span>
+          <span style="border:1px solid {{accent}}; padding:6px 12px; color:#ecebea">{{ t.heroBadge }}</span>
+        </div>
+        <h2 style="margin:0; font-weight:800; font-size:clamp(44px,6.4vw,96px); letter-spacing:-0.035em; line-height:.98">{{ t.contactTitleA }} <span style="color:{{accent}}">{{ t.contactTitleB }}</span></h2>
+        <a class="lnk" href="{{ links.mailto }}" style="font-size:clamp(22px,2.6vw,36px); font-weight:600; letter-spacing:-0.01em; overflow-wrap:anywhere">{{ email }}</a>
+        <div style="display:flex; flex-direction:column; border-top:1px solid #2a2a2c; font-family:'JetBrains Mono',monospace; font-size:15px">
+          <sc-for list="{{ contactRows }}" as="c" hint-placeholder-count="4">
+            <a class="row lnk" href="{{ c.href }}" target="_blank" rel="noopener" style="display:flex; justify-content:space-between; gap:16px; padding:18px 0; border-bottom:1px solid #2a2a2c"><span>{{ c.label }}</span><span style="color:#a8a8ad; text-align:right">{{ c.value }}</span></a>
+          </sc-for>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:18px 0; border-bottom:1px solid #2a2a2c"><span>{{ t.locLabel }}</span><span style="color:#a8a8ad; text-align:right">{{ t.locValue }}</span></div>
+        </div>
+      </div>
+
+      <div style="flex:1 1 440px; align-self:flex-start">
+        <sc-if value="{{ sentForm }}" hint-placeholder-val="{{ false }}">
+          <div class="pop" role="status" style="border:1px solid {{accent}}; padding:40px; display:flex; flex-direction:column; gap:20px">
+            <div style="font-weight:800; font-size:36px; letter-spacing:-0.02em">{{ t.thanks }}</div>
+            <p style="margin:0; font-size:18px; line-height:1.6; color:#c9c9ce">{{ sentFormText }}</p>
+            <button class="btn btn2" onClick="{{ again }}" style="align-self:flex-start; min-height:48px; padding:0 24px; background:none; border:1px solid #6e6e74; cursor:pointer; font-weight:600; font-size:16px">{{ t.again }}</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ sentMail }}" hint-placeholder-val="{{ false }}">
+          <div class="pop" role="status" style="border:1px solid {{accent}}; padding:40px; display:flex; flex-direction:column; gap:20px">
+            <div style="font-weight:800; font-size:36px; letter-spacing:-0.02em">{{ t.almost }}</div>
+            <p style="margin:0; font-size:18px; line-height:1.6; color:#c9c9ce">{{ t.mailOpened }}</p>
+            <a class="lnk" href="{{ links.mailto }}" style="font-family:'JetBrains Mono',monospace; font-size:15px; color:{{accent}}">{{ email }}</a>
+            <button class="btn btn2" onClick="{{ again }}" style="align-self:flex-start; min-height:48px; padding:0 24px; background:none; border:1px solid #6e6e74; cursor:pointer; font-weight:600; font-size:16px">{{ t.again }}</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ submit }}" novalidate="" style="display:flex; flex-direction:column; gap:24px">
+            <div style="display:flex; flex-direction:column; gap:8px">
+              <label for="f-name" style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ t.fName }}</label>
+              <input id="f-name" type="text" autocomplete="name" onInput="{{ onName }}" style="min-height:54px; box-sizing:border-box; padding:0 16px; background:#0c0c0d; border:1px solid #6e6e74; color:#ecebea; font-size:16px">
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px">
+              <label for="f-mail" style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ t.fMail }}</label>
+              <input id="f-mail" type="email" autocomplete="email" onInput="{{ onMail }}" style="min-height:54px; box-sizing:border-box; padding:0 16px; background:#0c0c0d; border:1px solid #6e6e74; color:#ecebea; font-size:16px">
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px">
+              <label for="f-msg" style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ t.fMsg }}</label>
+              <textarea id="f-msg" rows="6" onInput="{{ onMsg }}" placeholder="{{ t.fMsgHint }}" style="box-sizing:border-box; padding:14px 16px; background:#0c0c0d; border:1px solid #6e6e74; color:#ecebea; font-size:16px; resize:vertical"></textarea>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px 24px">
+              <button class="btn" type="submit" disabled="{{ sending }}" style="min-height:54px; padding:0 32px; background:{{accent}}; color:#0c0c0d; border:0; font-weight:600; font-size:17px; cursor:pointer">{{ submitLabel }}</button>
+              <span role="alert" style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#ff8a92">{{ error }}</span>
+            </div>
+            <p style="margin:0; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.6; color:#a8a8ad">{{ formNote }}</p>
+          </form>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid #2a2a2c">
+    <div class="wrap" style="padding-top:28px; padding-bottom:28px; display:flex; flex-wrap:wrap; gap:8px 24px; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:13px; color:#a8a8ad">
+      <span>© 2026 Patryk Malarczyk · Orion Belt Games</span>
+      <a class="lnk" href="#top">{{ t.toTop }}</a>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <sc-if value="{{ isOpen }}" hint-placeholder-val="{{ false }}">
+    <div role="dialog" aria-modal="true" aria-label="{{ mTitle }}" style="position:fixed; inset:0; z-index:80; background:rgba(8,8,9,.92); backdrop-filter:blur(8px); overflow-y:auto; display:flex; justify-content:center; padding:32px 16px">
+      <div class="pop" style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:28px; align-self:flex-start">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:16px">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ mNum }} / {{ mTotal }} · {{ mStatus }}</span>
+          <button class="btn btn2" onClick="{{ close }}" aria-label="{{ t.close }}" style="min-height:48px; padding:0 20px; background:none; border:1px solid #6e6e74; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:.06em">{{ t.close }} ✕</button>
+        </div>
+        <div style="position:relative; overflow:hidden; aspect-ratio:16/10; background:repeating-linear-gradient(135deg,#161617 0 14px,#1b1b1c 14px 28px); border:1px solid #2f2f31; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:13px; color:#a8a8ad; text-transform:uppercase; letter-spacing:.06em">
+          <sc-if value="{{ m.hasVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ m.video }}" poster="{{ m.poster }}" autoplay="" muted="" loop="" playsinline="" preload="metadata" aria-label="{{ m.mediaAlt }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#0c0c0d"></video></sc-if>
+          <sc-if value="{{ m.hasImage }}" hint-placeholder-val="{{ false }}"><img src="{{ m.image }}" alt="{{ m.mediaAlt }}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#0c0c0d"></sc-if>
+          <sc-if value="{{ m.noMedia }}" hint-placeholder-val="{{ true }}"><span>{{ m.media }}</span></sc-if>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:32px 64px">
+          <div style="flex:1 1 300px; display:flex; flex-direction:column; gap:14px">
+            <h3 style="margin:0; font-weight:800; font-size:clamp(32px,4vw,56px); letter-spacing:-0.03em; line-height:1">{{ mTitle }}</h3>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.6; color:#a8a8ad">{{ mPlatform }}</div>
+            <sc-if value="{{ mHasLink }}" hint-placeholder-val="{{ false }}">
+              <a class="btn" href="{{ mLink }}" target="_blank" rel="noopener" style="align-self:flex-start; display:inline-flex; align-items:center; min-height:48px; padding:0 24px; margin-top:8px; background:{{accent}}; color:#0c0c0d; font-weight:600; font-size:16px">{{ mLinkLabel }} ↗</a>
+            </sc-if>
+          </div>
+          <dl style="flex:2 1 420px; margin:0; display:flex; flex-direction:column; gap:20px">
+            <div style="display:flex; flex-direction:column; gap:6px">
+              <dt style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:{{accent}}">{{ t.problem }}</dt>
+              <dd style="margin:0; font-size:18px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ mProblem }}</dd>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px">
+              <dt style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:{{accent}}">{{ t.solution }}</dt>
+              <dd style="margin:0; font-size:18px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ mSolution }}</dd>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px">
+              <dt style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:{{accent}}">{{ t.result }}</dt>
+              <dd style="margin:0; font-size:18px; line-height:1.6; color:#c9c9ce; text-wrap:pretty">{{ mResult }}</dd>
+            </div>
+          </dl>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; border-top:1px solid #2a2a2c; padding-top:24px">
+          <button class="btn btn2" onClick="{{ prev }}" style="min-height:48px; padding:0 24px; background:none; border:1px solid #6e6e74; cursor:pointer; font-weight:600; font-size:16px">← {{ t.prev }}</button>
+          <button class="btn" onClick="{{ next }}" style="min-height:48px; padding:0 24px; background:{{accent}}; color:#0c0c0d; border:0; cursor:pointer; font-weight:600; font-size:16px">{{ t.next }} →</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#ff3340","options":["#ff3340","#ff7a3d","#3de0c8","#c6f432"]},"$preview":{"width":1440,"height":7400}}'>
+// Form delivery: leave empty to open the visitor's email app (mailto),
+// or paste a Formspree / Netlify Forms endpoint URL to send messages directly.
+const FORM_ENDPOINT = '';
+const EMAIL = 'patmalarz@gmail.com';
+
+// All copy lives here, so a Polish version can be added as a second dictionary later.
+const COPY = {
+  navLabel: 'Main', navTools: 'Tools', navServices: 'Services', navStudio: 'Studio', navWriting: 'Writing', navContact: 'Contact',
+  heroRole: 'Technical Artist · Tools & Optimization',
+  heroStudio: 'Co-founder, Orion Belt Games',
+  heroBadge: 'Remote · open to relocation',
+  heroTitleA: 'I build the tools',
+  heroTitleB: 'that build game worlds.',
+  heroLead: 'Architect by training, tool builder by choice. I design Unreal and Blender tools that help teams build coherent worlds faster, and I measure what they cost in milliseconds.',
+  ctaTools: 'See the tools ↓', ctaWork: 'Work with me',
+  proofLabel: 'Highlights',
+  toolsEyebrow: 'Tools',
+  toolsTitle: 'Tools I’ve built',
+  toolsLead: 'Each one started as a problem I hit in production. Open a card for the problem, the solution and what it changed.',
+  cardOpen: 'Breakdown ↗',
+  svcEyebrow: 'Services',
+  svcTitle: 'How I can help your team',
+  svcLead: 'I work alongside co-running Orion Belt Games, as an outside specialist for studios that need tools or a tech-art pass.',
+  svcHowTitle: 'How we’d work',
+  svcCta: 'Tell me about your pipeline →',
+  studioEyebrow: 'Studio',
+  studioTitle: 'Co-founder of Orion Belt Games',
+  studioP1: 'Since 2021 I’ve co-run an independent studio, where I lead 3D art and level design, keep the art direction coherent and write the production documentation.',
+  studioP2: 'We make complete games without microtransactions, and we commit to keeping them playable offline after official support ends.',
+  gameStatus: 'In production · final stretch',
+  gameDesc: 'Toy-plane dogfights in a backyard: fly as pilot or gunner, customise your aircraft, take on missions or friends in multiplayer. Unity, toon-shaded art, modular environments.',
+  gameCta: 'Wishlist on Steam ↗',
+  gameMediaAlt: 'Battle of BackYard: a P-38 toy plane flying through a living room',
+  writingEyebrow: 'Writing',
+  writingTitle: 'Notes on coherence',
+  writingLead: 'I write about why game worlds feel alive or fake, and what tools and tech change about it.',
+  postMeta: 'LinkedIn · 6,400+ impressions',
+  postTitle: 'Why did gamers hate DLSS 5 so much?',
+  postBody: 'Graphics ran ahead of everything else. A world reads as alive when lighting, animation, physics and sound speak the same language. Coherence > realism.',
+  postCta: 'Read on LinkedIn ↗',
+  bgEyebrow: 'Background',
+  bgTitle: 'From architecture to tech art',
+  bgLead: 'I studied architecture and urban planning with a focus on monument conservation: reading space, researching references, respecting the original. Then came five years of real-time 3D production, from environments and modular kits to optimisation and the tools that make it all faster.',
+  quote: '“Best damn 3D artist I worked with. Required short briefs, iterated on his work and took feedback like a champ!”',
+  quoteBy: '— Paweł Kubryński, Game Developer, Orion Belt Games',
+  stackTitle: 'Stack',
+  eduTitle: 'Education',
+  eduSchool: 'Kielce University of Technology',
+  eduDegree: 'MSc Eng. in Architecture and Urban Planning, specialisation: monument conservation',
+  eduCourse: 'Level Design course, Skvot (Unreal Engine 5)',
+  contactEyebrow: 'Contact',
+  contactTitleA: 'Let’s build',
+  contactTitleB: 'something together.',
+  locLabel: 'Location', locValue: 'Chęciny, Poland · CET',
+  fName: 'Name', fMail: 'Email', fMsg: 'Message',
+  fMsgHint: 'What are you building, and where does your pipeline hurt?',
+  send: 'Send message →', sending: 'Sending…',
+  noteMail: 'Sending opens your email app with the message ready to go.',
+  noteForm: 'Your message goes straight to my inbox.',
+  errName: 'Please add your name.', errMail: 'Please add a valid email address.', errMsg: 'Please write a few words.',
+  errSend: 'The message did not go through. Please try again or write to me by email.',
+  thanks: 'Thank you!', almost: 'Almost there',
+  mailOpened: 'Your email app should have opened with the message ready. Hit send there. Nothing opened? Write to me directly:',
+  again: 'Write another',
+  toTop: 'Back to top ↑',
+  close: 'Close', prev: 'Previous', next: 'Next',
+  problem: 'Problem', solution: 'Solution', result: 'Result'
+};
+
+const LINKS = {
+  github: 'https://github.com/hajtuszko',
+  rupture: 'https://github.com/hajtuszko/AxisRupture',
+  extrude: 'https://github.com/hajtuszko/AxisExtrude',
+  dungeon: 'https://hajtuszko.github.io/Dungeon-Generator/',
+  steam: 'https://store.steampowered.com/app/2630690/Battle_of_BackYard/',
+  linkedin: 'https://www.linkedin.com/in/patryk-malarczyk/',
+  linkedinPosts: 'https://www.linkedin.com/in/patryk-malarczyk/recent-activity/all/',
+  artstation: 'https://www.artstation.com/hajtuszko',
+  mailto: 'mailto:' + EMAIL
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      openId: null, role: 0,
+      mx: null, my: null, rx: -12, ry: 18,
+      name: '', mail: '', msg: '', status: '', sending: false, sent: '' // '' | 'form' | 'mail'
+    };
+  }
+
+  componentDidMount() {
+    this._onKey = (e) => {
+      if (e.key === 'Escape' && this.state.openId !== null) this.setState({ openId: null });
+    };
+    window.addEventListener('keydown', this._onKey);
+    try {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('video[autoplay]').forEach((v) => { v.pause(); v.removeAttribute('autoplay'); });
+      } else {
+        document.querySelectorAll('video[autoplay]').forEach((v) => { v.muted = true; const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); });
+      }
+    } catch (err) {}
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this._onKey);
+  }
+
+  renderVals() {
+    const accent = this.props.accent ?? '#ff3340';
+    const s = this.state;
+    const t = COPY;
+
+    const proof = [
+      { label: 'Battle of BackYard', sub: 'Coming to Steam', href: LINKS.steam, target: '_blank' },
+      { label: 'Featured on 80 Level', sub: 'Battle of BackYard', href: '#studio', target: '_self' },
+      { label: 'Shown at PGA', sub: 'Poznań Game Arena', href: '#studio', target: '_self' },
+      { label: 'Open-source tools', sub: 'Blender · GitHub', href: LINKS.github, target: '_blank' }
+    ];
+
+    const all = [
+      { title: 'Axis Interior', platform: 'Unreal Engine 5.6 · C++ · Python tests', status: 'In production',
+        media: '[ demo video · AxisInteriorTest ]', video: './assets/axis-interior.mp4', poster: './assets/axis-interior-poster.jpg',
+        mediaAlt: 'Axis Interior demo in Unreal Engine 5.6: rooms and corridors sketched by hand and built from modular assets, a corridor widened and a segment deleted, four biomes in a production level shown before and after dressing and post-process, then an auto-generated layout with level-design analyses',
+        pitch: 'Build, analyse and generate game interiors from modular assets, with the level designer in control.',
+        problem: 'Blocking out interiors by hand is slow, and nothing tells the designer where a level will bore, confuse or trap the player until somebody playtests it.',
+        solution: 'An editor toolkit with three layers. Building: corridors and rooms from modular walls, cornices, ceilings and beams. Analysis: long straights against a 7-second rule, sight lines and blind corners, dead ends, loops and chase routes, readability and landmarks. Generation: a start, goals and a tension curve become scored layout variants that the designer edits, then biomes and set dressing grow toward each goal.',
+        result: 'A playable layout and its weak spots in one pass, instead of after the first playtest. Every stage is covered by automated headless tests in the editor.',
+        link: '', linkLabel: '' },
+      { title: 'Axis Rupture', platform: 'Blender 4.2+ · Python', status: 'Open source',
+        media: '[ before / after · 16:10 ]', video: './assets/axis-rupture.mp4', poster: './assets/axis-rupture-poster.jpg',
+        mediaAlt: 'Axis Rupture demo: seams detected on a straight plank floor and on herringbone parquet, each plane split into separate planks, then torn up by terrain rising from below',
+        pitch: 'Texture-aware destruction: split surfaces along texture seams, then bend, tear and break them.',
+        problem: 'Destroyed floors, walls and roofs are usually modelled piece by piece, and the result rarely matches the texture the artists already painted.',
+        solution: 'Reads the seams from the material maps (AO, cavity, roughness, normal) and cuts the plane into real planks (in rows or herringbone), tiles, bricks or stones with UVs preserved. Then a terrain mesh or a scenario tears them: moisture bulge, collapse into a hole, blast crater. Details add splinters, cracks, nails and burn or rot; effects cover cracking ice and peeling carpet.',
+        result: 'Game-ready output: UVs kept, no n-gons, extra loops only where a piece actually bends. Live preview, and the tearing can be baked to shape keys.',
+        link: LINKS.rupture, linkLabel: 'View on GitHub' },
+      { title: 'Axis Extrude', platform: 'Blender 4.2+ · Python', status: 'Open source',
+        media: '[ demo gif · 16:10 ]',
+        pitch: 'Click-to-extrude modeling for plans, elevations and sections.',
+        problem: 'Architectural blockouts in Blender mean constant switching between extrude, grab and loop cut, with values typed in by hand.',
+        solution: 'Hover an edge and click: it extrudes to the cursor along the world axis. Works in top, front and side views, snaps to vertices, aligns with dashed guides, moves vertices in 10 cm steps and adds a loop cut with a click inside a face.',
+        result: 'Walls and simple architecture blocked out with the mouse alone, without breaking the flow.',
+        link: LINKS.extrude, linkLabel: 'View on GitHub' },
+      { title: 'Dungeon Generator', platform: 'Web · JavaScript', status: 'Live demo',
+        media: '[ live demo · 16:10 ]', image: './assets/dungeon-generator.jpg',
+        mediaAlt: 'Dungeon Generator: a generated layout of rooms and corridors with its 100/100 score breakdown',
+        pitch: 'A seeded layout generator with rooms, loops and a scoring pass.',
+        problem: 'Procedural layouts tend to be either trees full of dead ends or noise without structure.',
+        solution: 'Places rooms, carves corridors, adds doors, loops and widenings, then scores every candidate: loops and dead ends per room, the longest straight, junctions, room variety.',
+        result: 'Its core now runs inside Axis Interior, matched tile by tile with the original across eight test seeds.',
+        link: LINKS.dungeon, linkLabel: 'Open the demo' }
+    ].map((p, i) => ({ ...p, id: i, num: String(i + 1).padStart(2, '0'),
+      hasVideo: !!p.video, hasImage: !p.video && !!p.image, noMedia: !p.video && !p.image,
+      video: p.video || '', poster: p.poster || '', image: p.image || '', mediaAlt: p.mediaAlt || p.title }));
+
+    const tools = all.map((p) => ({ ...p, aria: 'Open breakdown: ' + p.title, pick: () => this.setState({ openId: p.id }) }));
+
+    const services = [
+      { num: '01', title: 'Custom tools', body: 'Blender add-ons and Unreal editor tools built around your pipeline: modular building, procedural placement, validation and batch work that artists and level designers actually enjoy using.' },
+      { num: '02', title: 'Ready-made tools', body: 'Axis Rupture and Axis Extrude are open source. Need a feature, an integration or a version tailored to your production? I can extend them for you.' },
+      { num: '03', title: 'Tech art & optimisation', body: 'Procedural environments, modular kits and performance passes: LODs, texture atlases, instancing, Niagara and lighting costs, profiled with clear before and after numbers.' }
+    ];
+
+    const engagement = [
+      'Project-based or part-time, remote from Poland (CET).',
+      'Code handed over with documentation and tests. Your project, your IP.',
+      'Art by hand. Tool code written with AI assistance; the design, testing and decisions are mine.'
+    ];
+
+    // lightbox
+    const isOpen = s.openId !== null;
+    const m = all[s.openId ?? 0];
+    const step = (d) => () => this.setState({ openId: (m.id + d + all.length) % all.length });
+
+    // background
+    const rolesRaw = [
+      { title: 'Co-founder · Lead 3D Artist & Level Designer', meta: 'Orion Belt Games · 2021 – present', points: [
+        'Art direction and visual storytelling across the studio’s projects; leading and mentoring artists and designers.',
+        'Aircraft and environment assets for Battle of BackYard: toon/cel-shading materials, outline-friendly silhouettes, LODs and texture atlases for smooth multiplayer.',
+        'Modular kits and set pieces for fast level building; multiplayer level design.',
+        'Production documentation (GDD) and editor tools for the team, including Axis Interior.'
+      ] },
+      { title: '3D Designer', meta: 'YSLAB · 2022 – 2023 and 2025 – present', points: [
+        'Interactive real-estate mockups in Unity: buildings, terrain and surroundings modelled from technical drawings.',
+        'UVs, texture atlases, PBR materials and LODs for real-time performance.',
+        'A growing library of street furniture and vegetation.',
+        'Blender tools for the team: one-click curb generator, Geometry Nodes placement of lamps and trees along roads, naming and instancing utilities.'
+      ] },
+      { title: '3D Designer', meta: 'Resimo · 2023', points: [
+        'Interactive real-estate sales software: real-time 3D models of investments.'
+      ] }
+    ];
+    const roles = rolesRaw.map((r, i) => {
+      const open = s.role === i;
+      return {
+        ...r, num: String(i + 1).padStart(2, '0'), open,
+        toggle: () => this.setState({ role: open ? -1 : i }),
+        iconStyle: 'font-family:JetBrains Mono,monospace; font-size:28px; line-height:1; color:' + accent + '; transition:transform .25s; transform:rotate(' + (open ? 45 : 0) + 'deg)'
+      };
+    });
+    const stack = ['Blender · Python · Geometry Nodes', 'Unreal Engine 5 · C++ · Python', 'Unity', 'Substance Painter', 'Photoshop', 'Quadspinner Gaea', 'RealityCapture', 'Git'];
+
+    const contactRows = [
+      { label: 'GitHub', value: 'hajtuszko ↗', href: LINKS.github },
+      { label: 'LinkedIn', value: 'in/patryk-malarczyk ↗', href: LINKS.linkedin },
+      { label: 'ArtStation', value: '3D art · hajtuszko ↗', href: LINKS.artstation }
+    ];
+
+    // hero interactions
+    const pos2 = s.mx === null ? '74% 42%' : s.mx + 'px ' + s.my + 'px';
+    const spotStyle = 'position:absolute; inset:0; pointer-events:none; background:radial-gradient(560px circle at ' + pos2 + ', color-mix(in srgb, ' + accent + ' 20%, transparent), transparent 65%)';
+    const tiltStyle = 'transform:rotateX(' + s.rx + 'deg) rotateY(' + s.ry + 'deg); transition:transform .2s ease-out; transform-style:preserve-3d';
+    const onHeroMove = (e) => {
+      try {
+        const r = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - r.left, y = e.clientY - r.top;
+        this.setState({
+          mx: Math.round(x), my: Math.round(y),
+          rx: Math.round(((y / r.height) - 0.5) * -50), ry: Math.round(((x / r.width) - 0.5) * 70)
+        });
+      } catch (err) {}
+    };
+    const onHeroLeave = () => this.setState({ mx: null, my: null, rx: -12, ry: 18 });
+
+    // contact form: Formspree/Netlify endpoint if set, otherwise the visitor's email app
+    const submit = (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      const name = this.state.name.trim(), mail = this.state.mail.trim(), msg = this.state.msg.trim();
+      if (!name) return this.setState({ status: t.errName });
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) return this.setState({ status: t.errMail });
+      if (msg.length < 5) return this.setState({ status: t.errMsg });
+      if (FORM_ENDPOINT) {
+        this.setState({ status: '', sending: true });
+        fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ name, email: mail, message: msg })
+        }).then((r) => {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          this.setState({ sending: false, sent: 'form' });
+        }).catch(() => this.setState({ sending: false, status: t.errSend }));
+        return;
+      }
+      const href = LINKS.mailto + '?subject=' + encodeURIComponent('Hello from ' + name)
+        + '&body=' + encodeURIComponent(msg + '\n\n— ' + name + ' (' + mail + ')');
+      window.location.href = href;
+      this.setState({ status: '', sent: 'mail' });
+    };
+
+    return {
+      accent, t, links: LINKS, email: EMAIL,
+      proof, tools, services, engagement, roles, stack, contactRows,
+      spotStyle, tiltStyle, onHeroMove, onHeroLeave,
+      isOpen, m, mTitle: m.title, mStatus: m.status, mPlatform: m.platform, mMedia: m.media,
+      mProblem: m.problem, mSolution: m.solution, mResult: m.result,
+      mHasLink: !!m.link, mLink: m.link || '#', mLinkLabel: m.linkLabel,
+      mNum: m.num, mTotal: String(all.length).padStart(2, '0'),
+      close: () => this.setState({ openId: null }), prev: step(-1), next: step(1),
+      sentForm: s.sent === 'form', sentMail: s.sent === 'mail', notSent: !s.sent,
+      sentFormText: 'Your message is on its way, ' + (s.name.trim() || 'friend') + '. I’ll get back to you as soon as I can.',
+      sending: s.sending, submitLabel: s.sending ? t.sending : t.send,
+      formNote: FORM_ENDPOINT ? t.noteForm : t.noteMail,
+      error: s.status,
+      onName: (e) => this.setState({ name: e.target.value }),
+      onMail: (e) => this.setState({ mail: e.target.value }),
+      onMsg: (e) => this.setState({ msg: e.target.value }),
+      submit,
+      again: () => this.setState({ sent: '', name: '', mail: '', msg: '', status: '' })
+    };
+  }
+}
+</script>
+</body>
+</html>

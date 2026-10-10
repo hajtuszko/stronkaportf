@@ -1,0 +1,6 @@
+# Pliki lokalne, których strona nie używa
+*.pdf
+desktop.ini
+Main.dc.html
+Main.dc.backup.html
+README.md
