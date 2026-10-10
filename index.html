@@ -74,7 +74,21 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
   .topnav::-webkit-scrollbar{display:none}
   .topnav a{flex:none;padding:12px 0!important}
   .sep{display:none}
+  .hero{display:grid!important;grid-template-columns:92px minmax(0,1fr);gap:22px 18px!important;padding-top:28px!important;padding-bottom:48px!important}
+  .hero-txt{display:contents!important}
+  .hero-meta{grid-column:2;grid-row:1;align-self:center;font-size:12px!important;gap:6px 10px!important}
+  .hero-meta .badge{padding:4px 8px!important}
+  .hero-meta .pulse{display:none}
+  .hero .ph{grid-column:1;grid-row:1;align-self:center;width:92px;max-width:none!important}
+  .hero .ph .fr{inset:6px -6px -6px 6px!important}
+  .hero-h1,.hero-lead,.hero-cta{grid-column:1/-1}
+  .hero-cta{gap:12px!important}
+  .hero-cta a{padding:0 20px!important;min-height:50px!important;font-size:16px!important}
 }
+@media (hover:none){.card .open{opacity:1;transform:none}}
+.jump{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid #3b3b3e;background:none;color:#ecebea;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em;transition:border-color .2s,color .2s}
+.jump:hover{border-color:var(--ac,#ff3340);color:var(--ac,#ff3340)}
+.jump b{font-weight:400;color:#a8a8ad;margin-right:8px}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
 </helmet>
@@ -99,15 +113,15 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
   <!-- HERO -->
   <section id="top" style="position:relative; overflow:hidden">
     <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size:64px 64px; -webkit-mask-image:linear-gradient(#000 40%,transparent); mask-image:linear-gradient(#000 40%,transparent)"></div>
-    <div class="wrap" style="position:relative; padding-top:56px; padding-bottom:64px; display:flex; flex-wrap:wrap; gap:48px 64px; align-items:center">
-      <div style="flex:999 1 520px; min-width:0; display:flex; flex-direction:column; gap:24px">
-        <div class="up" style="animation-delay:.05s; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">
+    <div class="wrap hero" style="position:relative; padding-top:56px; padding-bottom:64px; display:flex; flex-wrap:wrap; gap:48px 64px; align-items:center">
+      <div class="hero-txt" style="flex:999 1 520px; min-width:0; display:flex; flex-direction:column; gap:24px">
+        <div class="up hero-meta" style="animation-delay:.05s; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">
           <span class="pulse" style="width:10px; height:10px; border-radius:50%; background:{{accent}}"></span>
-          <span>{{ t.heroRole }}</span><span class="sep" aria-hidden="true">/</span><span>{{ t.heroStudio }}</span><span style="border:1px solid #3b3b3e; padding:6px 12px; color:#ecebea">{{ t.heroBadge }}</span>
+          <span>{{ t.heroRole }}</span><span class="sep" aria-hidden="true">/</span><span>{{ t.heroStudio }}</span><span class="badge" style="border:1px solid #3b3b3e; padding:6px 12px; color:#ecebea">{{ t.heroBadge }}</span>
         </div>
-        <h1 class="up" style="animation-delay:.15s; margin:0; font-weight:800; font-size:clamp(36px, 4.6vw, 64px); line-height:1.02; letter-spacing:-0.035em; text-wrap:balance">{{ t.heroTitleA }} <span style="color:{{accent}}">{{ t.heroTitleB }}</span></h1>
-        <p class="up" style="animation-delay:.3s; margin:0; max-width:540px; font-size:18px; line-height:1.5; color:#a8a8ad; text-wrap:pretty">{{ t.heroLead }}</p>
-        <div class="up" style="animation-delay:.45s; display:flex; flex-wrap:wrap; gap:16px">
+        <h1 class="up hero-h1" style="animation-delay:.15s; margin:0; font-weight:800; font-size:clamp(36px, 4.6vw, 64px); line-height:1.02; letter-spacing:-0.035em; text-wrap:balance">{{ t.heroTitleA }} <span style="color:{{accent}}">{{ t.heroTitleB }}</span></h1>
+        <p class="up hero-lead" style="animation-delay:.3s; margin:0; max-width:540px; font-size:18px; line-height:1.5; color:#a8a8ad; text-wrap:pretty">{{ t.heroLead }}</p>
+        <div class="up hero-cta" style="animation-delay:.45s; display:flex; flex-wrap:wrap; gap:16px">
           <a class="btn" href="#tools" style="display:inline-flex; align-items:center; min-height:54px; padding:0 30px; background:{{accent}}; color:#0c0c0d; font-weight:600; font-size:17px">{{ t.ctaTools }}</a>
           <a class="btn btn2" href="#services" style="display:inline-flex; align-items:center; min-height:54px; padding:0 30px; border:1px solid #6e6e74; font-weight:600; font-size:17px">{{ t.ctaWork }}</a>
         </div>
@@ -150,7 +164,7 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
         <sc-for list="{{ tools }}" as="p" hint-placeholder-count="4">
           <button class="card pop" onClick="{{ p.pick }}" aria-label="{{ p.aria }}">
             <div class="media">
-              <sc-if value="{{ p.hasVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ p.video }}" poster="{{ p.poster }}" autoplay="" muted="" loop="" playsinline="" preload="metadata" aria-label="{{ p.mediaAlt }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></video></sc-if>
+              <sc-if value="{{ p.hasVideo }}" hint-placeholder-val="{{ false }}"><video data-inview="" src="{{ p.video }}" poster="{{ p.poster }}" muted="" loop="" playsinline="" preload="none" aria-label="{{ p.mediaAlt }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></video></sc-if>
               <sc-if value="{{ p.hasImage }}" hint-placeholder-val="{{ false }}"><img src="{{ p.image }}" alt="{{ p.mediaAlt }}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></sc-if>
               <sc-if value="{{ p.noMedia }}" hint-placeholder-val="{{ true }}"><div class="mi">{{ p.media }}</div></sc-if>
               <span style="position:absolute; left:12px; top:12px; font-family:'JetBrains Mono',monospace; font-size:13px; color:#ecebea; background:rgba(12,12,13,.8); padding:4px 8px">{{ p.num }}</span>
@@ -372,7 +386,7 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
 
   <!-- LIGHTBOX -->
   <sc-if value="{{ isOpen }}" hint-placeholder-val="{{ false }}">
-    <div role="dialog" aria-modal="true" aria-label="{{ mTitle }}" style="position:fixed; inset:0; z-index:80; background:rgba(8,8,9,.92); backdrop-filter:blur(8px); overflow-y:auto; display:flex; justify-content:center; padding:32px 16px">
+    <div role="dialog" aria-modal="true" aria-label="{{ mTitle }}" style="position:fixed; inset:0; z-index:80; background:rgba(8,8,9,.92); backdrop-filter:blur(8px); overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; display:flex; justify-content:center; padding:32px 16px">
       <div class="pop" style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:28px; align-self:flex-start">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:16px">
           <span style="font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">{{ mNum }} / {{ mTotal }} · {{ mStatus }}</span>
@@ -383,10 +397,24 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
           <sc-if value="{{ m.hasImage }}" hint-placeholder-val="{{ false }}"><img src="{{ m.image }}" alt="{{ m.mediaAlt }}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#0c0c0d"></sc-if>
           <sc-if value="{{ m.noMedia }}" hint-placeholder-val="{{ true }}"><span>{{ m.media }}</span></sc-if>
         </div>
+        <sc-if value="{{ mHasChapters }}" hint-placeholder-val="{{ false }}">
+          <div role="group" aria-label="{{ t.chaptersLabel }}" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:-12px">
+            <sc-for list="{{ mChapters }}" as="c" hint-placeholder-count="3">
+              <button class="jump" type="button" onClick="{{ c.go }}"><b>{{ c.at }}</b>{{ c.label }}</button>
+            </sc-for>
+          </div>
+        </sc-if>
         <div style="display:flex; flex-wrap:wrap; gap:32px 64px">
           <div style="flex:1 1 300px; display:flex; flex-direction:column; gap:14px">
             <h3 style="margin:0; font-weight:800; font-size:clamp(32px,4vw,56px); letter-spacing:-0.03em; line-height:1">{{ mTitle }}</h3>
             <div style="font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.6; color:#a8a8ad">{{ mPlatform }}</div>
+            <sc-if value="{{ mHasDetails }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:6px">
+                <sc-for list="{{ mDetails }}" as="d" hint-placeholder-count="5">
+                  <button class="jump" type="button" onClick="{{ d.go }}">{{ d.head }}<span aria-hidden="true" style="margin-left:8px">↓</span></button>
+                </sc-for>
+              </div>
+            </sc-if>
             <sc-if value="{{ mHasLink }}" hint-placeholder-val="{{ false }}">
               <a class="btn" href="{{ mLink }}" target="_blank" rel="noopener" style="align-self:flex-start; display:inline-flex; align-items:center; min-height:48px; padding:0 24px; margin-top:8px; background:{{accent}}; color:#0c0c0d; font-weight:600; font-size:16px">{{ mLinkLabel }} ↗</a>
             </sc-if>
@@ -409,7 +437,7 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
         <sc-if value="{{ mHasDetails }}" hint-placeholder-val="{{ false }}">
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(440px,100%), 1fr)); gap:36px 64px; border-top:1px solid #2a2a2c; padding-top:32px">
             <sc-for list="{{ mDetails }}" as="d" hint-placeholder-count="5">
-              <div style="display:flex; flex-direction:column; gap:14px">
+              <div id="{{ d.id }}" style="display:flex; flex-direction:column; gap:14px; scroll-margin-top:16px">
                 <h4 style="margin:0; font-family:'JetBrains Mono',monospace; font-weight:400; font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:{{accent}}">{{ d.head }}</h4>
                 <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px">
                   <sc-for list="{{ d.points }}" as="b" hint-placeholder-count="4">
@@ -495,7 +523,7 @@ const COPY = {
   mailOpened: 'Your email app should have opened with the message ready. Hit send there. Nothing opened? Write to me directly:',
   again: 'Write another',
   toTop: 'Back to top ↑',
-  close: 'Close', prev: 'Previous', next: 'Next',
+  close: 'Close', prev: 'Previous', next: 'Next', chaptersLabel: 'Chapters',
   problem: 'Problem', solution: 'Solution', result: 'Result'
 };
 
@@ -521,21 +549,102 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
+    const count = () => (this._slugs || []).length;
+    const move = (d) => this.setState({ openId: (this.state.openId + d + count()) % count() });
+
+    // Esc closes a breakdown, the arrows go to the previous / next one
     this._onKey = (e) => {
-      if (e.key === 'Escape' && this.state.openId !== null) this.setState({ openId: null });
+      if (this.state.openId === null) return;
+      if (e.key === 'Escape') { this.setState({ openId: null }); return; }
+      if (/INPUT|TEXTAREA|SELECT/.test((e.target && e.target.tagName) || '')) return;
+      if (e.key === 'ArrowRight') move(1);
+      else if (e.key === 'ArrowLeft') move(-1);
     };
     window.addEventListener('keydown', this._onKey);
-    try {
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.querySelectorAll('video[autoplay]').forEach((v) => { v.pause(); v.removeAttribute('autoplay'); });
-      } else {
-        document.querySelectorAll('video[autoplay]').forEach((v) => { v.muted = true; const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); });
-      }
-    } catch (err) {}
+
+    // on a phone, a sideways swipe does the same
+    this._onTouchStart = (e) => {
+      const t = e.touches && e.touches[0];
+      const inDialog = e.target && e.target.closest && e.target.closest('[role="dialog"]');
+      this._touch = this.state.openId !== null && t && inDialog ? { x: t.clientX, y: t.clientY } : null;
+    };
+    this._onTouchEnd = (e) => {
+      const s = this._touch, t = e.changedTouches && e.changedTouches[0];
+      this._touch = null;
+      if (!s || !t || this.state.openId === null) return;
+      const dx = t.clientX - s.x, dy = t.clientY - s.y;
+      if (Math.abs(dx) > 70 && Math.abs(dx) > 2 * Math.abs(dy)) move(dx < 0 ? 1 : -1);
+    };
+    window.addEventListener('touchstart', this._onTouchStart, { passive: true });
+    window.addEventListener('touchend', this._onTouchEnd, { passive: true });
+
+    // every breakdown has its own address (#axis-interior); Back closes it
+    this._onPop = () => {
+      const id = this._idOf(location.hash);
+      this._urlId = id;
+      if (id !== this.state.openId) this.setState({ openId: id });
+    };
+    window.addEventListener('popstate', this._onPop);
+    const first = this._idOf(location.hash);
+    this._urlId = first;
+    if (first !== null) this.setState({ openId: first });
+
+    this._reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    this._syncVideos();
+  }
+
+  componentDidUpdate() {
+    const id = this.state.openId;
+    if (id !== this._urlId) {
+      try {
+        if (id !== null) {
+          const url = '#' + this._slugs[id];
+          if (this._urlId === null) history.pushState({ breakdown: true }, '', url);
+          else history.replaceState(history.state, '', url);
+        } else if (history.state && history.state.breakdown) {
+          this._urlId = null;
+          history.back();
+          return;
+        } else {
+          history.replaceState(null, '', location.pathname + location.search);
+        }
+      } catch (err) {}
+      this._urlId = id;
+    }
+    this._syncVideos();
   }
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this._onKey);
+    window.removeEventListener('touchstart', this._onTouchStart);
+    window.removeEventListener('touchend', this._onTouchEnd);
+    window.removeEventListener('popstate', this._onPop);
+    if (this._io) this._io.disconnect();
+  }
+
+  _idOf(hash) {
+    const slug = String(hash || '').replace(/^#/, '');
+    const i = (this._slugs || []).indexOf(slug);
+    return slug && i >= 0 ? i : null;
+  }
+
+  // Card videos play only while on screen (and never with reduced motion); the breakdown's own video autoplays.
+  _syncVideos() {
+    try {
+      const play = (v) => { v.muted = true; const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); };
+      if (!this._io && 'IntersectionObserver' in window) {
+        this._io = new IntersectionObserver((entries) => entries.forEach((en) => {
+          if (en.isIntersecting && !this._reduced) play(en.target);
+          else en.target.pause();
+        }), { threshold: 0.35 });
+        this._seen = new WeakSet();
+      }
+      document.querySelectorAll('video[data-inview]').forEach((v) => {
+        if (!this._io) { if (!this._reduced) play(v); return; }
+        if (!this._seen.has(v)) { this._seen.add(v); this._io.observe(v); }
+      });
+      if (this._reduced) document.querySelectorAll('[role="dialog"] video').forEach((v) => { v.pause(); v.removeAttribute('autoplay'); });
+    } catch (err) {}
   }
 
   renderVals() {
@@ -551,13 +660,14 @@ class Component extends DCLogic {
     ];
 
     const all = [
-      { title: 'Axis Interior ’n Biomes', platform: 'Unreal Engine 5.6 · C++ · 3 plugins · Python tests', status: 'In production',
+      { title: 'Axis Interior ’n Biomes', slug: 'axis-interior', platform: 'Unreal Engine 5.6 · C++ · 3 plugins · Python tests', status: 'In production',
         media: '[ demo video · AxisInteriorTest ]', video: './assets/axis-interior.mp4', poster: './assets/axis-interior-poster.jpg',
         mediaAlt: 'Axis Interior demo in Unreal Engine 5.6: rooms and corridors sketched by hand and built from modular assets, a corridor widened and a segment deleted, four biomes in a production level built up layer by layer (lamps, decals, wear, flowers, blood, drawings, post-process), then an auto-generated layout with level-design analyses',
         pitch: 'An Unreal Engine 5.6 editor mode for game interiors: build them from modular assets, dress them, analyse them like a level designer, generate layouts from a start and goals, then grow a biome toward each goal. The designer stays in control at every step.',
         problem: 'Blocking out interiors by hand is slow, and nothing tells the designer where a level will bore, confuse or trap the player until somebody playtests it.',
         solution: 'Three plugins (editor, runtime and biomes) behind one editor mode that covers the whole loop: build, dress, analyse, generate and grow biomes. It started as a port of my Blender tool and is now a C++ toolkit. The same seed always gives the same level.',
         result: 'A playable layout and its weak spots in one pass, instead of after the first playtest. In our production project, a plan for five goals up to about 165 m away generates in 0.9 s. Every stage is covered by automated headless tests in the editor.',
+        chapters: [{ label: 'Build by hand', t: 0 }, { label: 'Four biomes', t: 23 }, { label: 'Generate and analyse', t: 48 }],
         details: [
           { head: 'Build', points: [
             'Corridors as graphs: per-segment widths, one-sided widenings, closed ends and doors into rooms.',
@@ -594,14 +704,14 @@ class Component extends DCLogic {
       { title: 'Axis Rupture', platform: 'Blender 4.2+ · Python', status: 'Open source',
         media: '[ before / after · 16:10 ]', video: './assets/axis-rupture.mp4', poster: './assets/axis-rupture-poster.jpg',
         mediaAlt: 'Axis Rupture demo: seams detected on a straight plank floor and on herringbone parquet, each plane split into separate planks, then torn up by terrain rising from below',
-        pitch: 'Texture-aware destruction: split surfaces along texture seams, then bend, tear and break them.',
+        pitch: 'Texture-aware destruction: split surfaces along texture seams, then bend, tear and break them. Planks, tiles, bricks or stones come out game-ready, with UVs kept and a live preview.',
         problem: 'Destroyed floors, walls and roofs are usually modelled piece by piece, and the result rarely matches the texture the artists already painted.',
         solution: 'Reads the seams from the material maps (AO, cavity, roughness, normal) and cuts the plane into real planks (in rows or herringbone), tiles, bricks or stones with UVs preserved. Then a terrain mesh or a scenario tears them: moisture bulge, collapse into a hole, blast crater. Details add splinters, cracks, nails and burn or rot; effects cover cracking ice and peeling carpet.',
         result: 'Game-ready output: UVs kept, no n-gons, extra loops only where a piece actually bends. Live preview, and the tearing can be baked to shape keys.',
         link: LINKS.rupture, linkLabel: 'View on GitHub' },
       { title: 'Axis Extrude', platform: 'Blender 4.2+ · Python', status: 'Open source',
         media: '[ demo gif · 16:10 ]',
-        pitch: 'Click-to-extrude modeling for plans, elevations and sections.',
+        pitch: 'Click-to-extrude modeling for plans, elevations and sections. Hover an edge and click: it extrudes to the cursor along the world axis, with snapping, guides and 10 cm steps.',
         problem: 'Architectural blockouts in Blender mean constant switching between extrude, grab and loop cut, with values typed in by hand.',
         solution: 'Hover an edge and click: it extrudes to the cursor along the world axis. Works in top, front and side views, snaps to vertices, aligns with dashed guides, moves vertices in 10 cm steps and adds a loop cut with a click inside a face.',
         result: 'Walls and simple architecture blocked out with the mouse alone, without breaking the flow.',
@@ -609,12 +719,13 @@ class Component extends DCLogic {
       { title: 'Dungeon Generator', platform: 'Web · JavaScript', status: 'Live demo',
         media: '[ live demo · 16:10 ]', image: './assets/dungeon-generator.jpg',
         mediaAlt: 'Dungeon Generator: a generated layout of rooms and corridors with its 100/100 score breakdown',
-        pitch: 'A seeded layout generator with rooms, loops and a scoring pass.',
+        pitch: 'A seeded layout generator with rooms, loops and a scoring pass. Every candidate is scored on loops, dead ends, straights and room variety, and its core now runs inside Axis Interior.',
         problem: 'Procedural layouts tend to be either trees full of dead ends or noise without structure.',
         solution: 'Places rooms, carves corridors, adds doors, loops and widenings, then scores every candidate: loops and dead ends per room, the longest straight, junctions, room variety.',
         result: 'Its core now runs inside Axis Interior, matched tile by tile with the original across eight test seeds.',
         link: LINKS.dungeon, linkLabel: 'Open the demo' }
     ].map((p, i) => ({ ...p, id: i, num: String(i + 1).padStart(2, '0'),
+      slug: p.slug || p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
       hasVideo: !!p.video, hasImage: !p.video && !!p.image, noMedia: !p.video && !p.image,
       video: p.video || '', poster: p.poster || '', image: p.image || '', mediaAlt: p.mediaAlt || p.title }));
 
@@ -636,6 +747,11 @@ class Component extends DCLogic {
     const isOpen = s.openId !== null;
     const m = all[s.openId ?? 0];
     const step = (d) => () => this.setState({ openId: (m.id + d + all.length) % all.length });
+    const mDetails = (m.details || []).map((d, k) => ({ ...d, id: 'dt-' + k,
+      go: () => { const el = document.getElementById('dt-' + k); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }));
+    const mChapters = (m.chapters || []).map((c) => ({ ...c, at: Math.floor(c.t / 60) + ':' + String(c.t % 60).padStart(2, '0'),
+      go: () => { const v = document.querySelector('[role="dialog"] video'); if (v) { v.currentTime = c.t; const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); } } }));
+    this._slugs = all.map((p) => p.slug);
 
     // background
     const rolesRaw = [
@@ -701,7 +817,7 @@ class Component extends DCLogic {
       proof, tools, services, engagement, roles, stack, contactRows,
       isOpen, m, mTitle: m.title, mStatus: m.status, mPlatform: m.platform, mMedia: m.media,
       mProblem: m.problem, mSolution: m.solution, mResult: m.result,
-      mHasDetails: !!(m.details && m.details.length), mDetails: m.details || [],
+      mHasDetails: mDetails.length > 0, mDetails, mHasChapters: mChapters.length > 0, mChapters,
       mHasLink: !!m.link, mLink: m.link || '#', mLinkLabel: m.linkLabel,
       mNum: m.num, mTotal: String(all.length).padStart(2, '0'),
       close: () => this.setState({ openId: null }), prev: step(-1), next: step(1),
