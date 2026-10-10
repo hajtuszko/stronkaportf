@@ -53,16 +53,10 @@ button{font:inherit;color:inherit}
 .accT{transition:color .2s}
 .ph .fr{transition:inset .3s cubic-bezier(.2,.7,.2,1)}
 .ph:hover .fr{inset:6px -6px -6px 6px}
-.scene{perspective:900px}
-.cube{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:spin 20s linear infinite}
-.cube2{position:absolute;inset:25%;transform-style:preserve-3d;animation:spin 12s linear infinite reverse}
-.f,.g{position:absolute;inset:0;border:1.5px solid var(--ac,#ff3340);background:rgba(255,51,64,.05)}
-.f1{transform:translateZ(var(--h))}.f2{transform:rotateY(180deg) translateZ(var(--h))}.f3{transform:rotateY(90deg) translateZ(var(--h))}.f4{transform:rotateY(-90deg) translateZ(var(--h))}.f5{transform:rotateX(90deg) translateZ(var(--h))}.f6{transform:rotateX(-90deg) translateZ(var(--h))}
 .up{animation:up .9s cubic-bezier(.2,.7,.2,1) both}
 .pulse{animation:pulse 1.8s ease-in-out infinite}
 .pop{animation:pop .25s ease-out both}
 .prog{position:fixed;top:0;left:0;right:0;height:3px;background:var(--ac,#ff3340);transform:scaleX(0);transform-origin:0 50%;z-index:60}
-@keyframes spin{from{transform:rotateX(-20deg) rotateY(0deg)}to{transform:rotateX(-20deg) rotateY(360deg)}}
 @keyframes up{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 @keyframes pop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
@@ -106,33 +100,23 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
   <section id="top" onMouseMove="{{ onHeroMove }}" onMouseLeave="{{ onHeroLeave }}" style="position:relative; overflow:hidden">
     <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size:64px 64px; -webkit-mask-image:linear-gradient(#000 40%,transparent); mask-image:linear-gradient(#000 40%,transparent)"></div>
     <div aria-hidden="true" style="{{ spotStyle }}"></div>
-    <div class="wrap" style="position:relative; padding-top:88px; padding-bottom:104px; display:flex; flex-wrap:wrap; gap:72px 64px; align-items:center">
-      <div style="flex:999 1 520px; min-width:0; display:flex; flex-direction:column; gap:36px">
+    <div class="wrap" style="position:relative; padding-top:56px; padding-bottom:64px; display:flex; flex-wrap:wrap; gap:48px 64px; align-items:center">
+      <div style="flex:999 1 520px; min-width:0; display:flex; flex-direction:column; gap:24px">
         <div class="up" style="animation-delay:.05s; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:#a8a8ad">
           <span class="pulse" style="width:10px; height:10px; border-radius:50%; background:{{accent}}"></span>
           <span>{{ t.heroRole }}</span><span class="sep" aria-hidden="true">/</span><span>{{ t.heroStudio }}</span><span style="border:1px solid #3b3b3e; padding:6px 12px; color:#ecebea">{{ t.heroBadge }}</span>
         </div>
-        <h1 class="up" style="animation-delay:.15s; margin:0; font-weight:800; font-size:clamp(42px, 6vw, 92px); line-height:1; letter-spacing:-0.035em; text-wrap:balance">{{ t.heroTitleA }} <span style="color:{{accent}}">{{ t.heroTitleB }}</span></h1>
-        <p class="up" style="animation-delay:.3s; margin:0; max-width:580px; font-size:20px; line-height:1.5; color:#a8a8ad; text-wrap:pretty">{{ t.heroLead }}</p>
+        <h1 class="up" style="animation-delay:.15s; margin:0; font-weight:800; font-size:clamp(36px, 4.6vw, 64px); line-height:1.02; letter-spacing:-0.035em; text-wrap:balance">{{ t.heroTitleA }} <span style="color:{{accent}}">{{ t.heroTitleB }}</span></h1>
+        <p class="up" style="animation-delay:.3s; margin:0; max-width:540px; font-size:18px; line-height:1.5; color:#a8a8ad; text-wrap:pretty">{{ t.heroLead }}</p>
         <div class="up" style="animation-delay:.45s; display:flex; flex-wrap:wrap; gap:16px">
           <a class="btn" href="#tools" style="display:inline-flex; align-items:center; min-height:54px; padding:0 30px; background:{{accent}}; color:#0c0c0d; font-weight:600; font-size:17px">{{ t.ctaTools }}</a>
           <a class="btn btn2" href="#services" style="display:inline-flex; align-items:center; min-height:54px; padding:0 30px; border:1px solid #6e6e74; font-weight:600; font-size:17px">{{ t.ctaWork }}</a>
         </div>
       </div>
 
-      <div class="ph up" style="animation-delay:.3s; flex:1 1 280px; max-width:380px; position:relative; z-index:0; isolation:isolate">
+      <div class="ph up" style="animation-delay:.3s; flex:1 1 240px; max-width:300px; position:relative; z-index:0; isolation:isolate">
         <img src="./assets/c15e346987d0c5f2a69321f5ff3b2823.jpg" alt="Patryk Malarczyk" style="display:block; width:100%; aspect-ratio:1/1; object-fit:cover; filter:contrast(1.05)">
         <div class="fr" style="position:absolute; inset:16px -16px -16px 16px; border:2px solid {{accent}}; z-index:-1"></div>
-        <div class="scene" aria-hidden="true" style="position:absolute; left:-44px; bottom:-52px; width:132px; height:132px; z-index:2; --h:66px">
-          <div style="{{ tiltStyle }}; width:100%; height:100%; transform-style:preserve-3d">
-            <div class="cube">
-              <div class="f f1"></div><div class="f f2"></div><div class="f f3"></div><div class="f f4"></div><div class="f f5"></div><div class="f f6"></div>
-              <div class="cube2" style="--h:33px">
-                <div class="f f1"></div><div class="f f2"></div><div class="f f3"></div><div class="f f4"></div><div class="f f5"></div><div class="f f6"></div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -519,7 +503,7 @@ class Component extends DCLogic {
     super(props);
     this.state = {
       openId: null, role: 0,
-      mx: null, my: null, rx: -12, ry: 18,
+      mx: null, my: null,
       name: '', mail: '', msg: '', status: '', sending: false, sent: '' // '' | 'form' | 'mail'
     };
   }
@@ -646,18 +630,14 @@ class Component extends DCLogic {
     // hero interactions
     const pos2 = s.mx === null ? '74% 42%' : s.mx + 'px ' + s.my + 'px';
     const spotStyle = 'position:absolute; inset:0; pointer-events:none; background:radial-gradient(560px circle at ' + pos2 + ', color-mix(in srgb, ' + accent + ' 20%, transparent), transparent 65%)';
-    const tiltStyle = 'transform:rotateX(' + s.rx + 'deg) rotateY(' + s.ry + 'deg); transition:transform .2s ease-out; transform-style:preserve-3d';
     const onHeroMove = (e) => {
       try {
         const r = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - r.left, y = e.clientY - r.top;
-        this.setState({
-          mx: Math.round(x), my: Math.round(y),
-          rx: Math.round(((y / r.height) - 0.5) * -50), ry: Math.round(((x / r.width) - 0.5) * 70)
-        });
+        this.setState({ mx: Math.round(x), my: Math.round(y) });
       } catch (err) {}
     };
-    const onHeroLeave = () => this.setState({ mx: null, my: null, rx: -12, ry: 18 });
+    const onHeroLeave = () => this.setState({ mx: null, my: null });
 
     // contact form: Formspree/Netlify endpoint if set, otherwise the visitor's email app
     const submit = (e) => {
@@ -687,7 +667,7 @@ class Component extends DCLogic {
     return {
       accent, t, links: LINKS, email: EMAIL,
       proof, tools, services, engagement, roles, stack, contactRows,
-      spotStyle, tiltStyle, onHeroMove, onHeroLeave,
+      spotStyle, onHeroMove, onHeroLeave,
       isOpen, m, mTitle: m.title, mStatus: m.status, mPlatform: m.platform, mMedia: m.media,
       mProblem: m.problem, mSolution: m.solution, mResult: m.result,
       mHasLink: !!m.link, mLink: m.link || '#', mLinkLabel: m.linkLabel,
