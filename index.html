@@ -309,6 +309,9 @@ input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px soli
                 <sc-for list="{{ r.points }}" as="b" hint-placeholder-count="4">
                   <li style="display:flex; gap:14px; font-size:18px; line-height:1.55; color:#c9c9ce; text-wrap:pretty"><span aria-hidden="true" style="flex:none; width:8px; height:8px; margin-top:11px; background:{{accent}}"></span><span>{{ b }}</span></li>
                 </sc-for>
+                <sc-if value="{{ r.hasLink }}" hint-placeholder-val="{{ false }}">
+                  <li style="padding-left:22px"><a class="lnk" href="{{ r.linkHref }}" target="_blank" rel="noopener" style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:.04em; color:#ecebea; border-bottom:1px solid {{accent}}; padding-bottom:2px">{{ r.linkLabel }} ↗</a></li>
+                </sc-if>
               </ul>
             </sc-if>
           </div>
@@ -766,18 +769,20 @@ class Component extends DCLogic {
         'A growing library of street furniture and vegetation.',
         'Blender tools for the team: one-click curb generator, Geometry Nodes placement of lamps and trees along roads, naming and instancing utilities.'
       ] },
+      { title: '3D Artist · Props & Armours', meta: 'Veritas RP · Gothic II Online · 2025 – 2026', points: [
+        'Low-poly props and armours in the style of Gothic for Veritas RP, a Polish roleplay server for Gothic II Online built by a volunteer team.',
+        'Props textured only with original Gothic textures, so they match the look of the game.',
+        'Presented the mod at Pyrkon and CD-Action Expo, including a talk on immersion I gave with another artist from the team.'
+      ], link: 'https://veritas-rp.pl/', linkLabel: 'veritas-rp.pl' },
       { title: '3D Designer', meta: 'Resimo · 2023', points: [
         'Interactive real-estate sales software: real-time 3D models of investments.'
-      ] },
-      { title: '3D Artist · Props & Armours', meta: 'Veritas RP · Gothic II mod', points: [
-        'Low-poly props and armours in the style of Gothic for Veritas RP, a mod for Gothic II.',
-        'Props textured only with original Gothic textures, so they match the look of the game.'
       ] }
     ];
     const roles = rolesRaw.map((r, i) => {
       const open = s.role === i;
       return {
         ...r, num: String(i + 1).padStart(2, '0'), open,
+        hasLink: !!r.link, linkHref: r.link || '#', linkLabel: r.linkLabel || '',
         toggle: () => this.setState({ role: open ? -1 : i }),
         iconStyle: 'font-family:JetBrains Mono,monospace; font-size:28px; line-height:1; color:' + accent + '; transition:transform .25s; transform:rotate(' + (open ? 45 : 0) + 'deg)'
       };
