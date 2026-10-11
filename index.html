@@ -695,12 +695,12 @@ class Component extends DCLogic {
     const all = [
       { title: 'Axis Interior ’n Biomes', slug: 'axis-interior', platform: 'Unreal Engine 5.6 · C++ · 3 plugins · Python tests', status: 'In production',
         media: '[ demo video · AxisInteriorTest ]', video: './assets/axis-interior.mp4', poster: './assets/axis-interior-poster.jpg',
-        mediaAlt: 'Axis Interior demo in Unreal Engine 5.6: rooms and corridors sketched by hand and built from modular assets, a corridor widened and a segment deleted, four biomes in a production level built up layer by layer (lamps, decals, wear, flowers, blood, drawings, post-process), then an auto-generated layout with level-design analyses',
+        mediaAlt: 'Axis Interior demo in Unreal Engine 5.6: rooms and corridors sketched by hand and built from modular assets, a corridor widened and a segment deleted, a ceiling laid and its middle raised, beams with columns across a room and along a corridor, wall panels swapped for a window module, four biomes in a production level built up layer by layer (lamps, decals, wear, flowers, blood, drawings, post-process), then an auto-generated layout with level-design analyses',
         pitch: 'An Unreal Engine 5.6 editor mode for game interiors: build them from modular assets, dress them, analyse them like a level designer, generate layouts from a start and goals, then grow a biome toward each goal. The designer stays in control at every step.',
         problem: 'Blocking out interiors by hand is slow, and nothing tells the designer where a level will bore, confuse or trap the player until somebody playtests it.',
         solution: 'Three plugins (editor, runtime and biomes) behind one editor mode that covers the whole loop: build, dress, analyse, generate and grow biomes. It started as a port of my Blender tool and is now a C++ toolkit. The same seed always gives the same level.',
         result: 'A playable layout and its weak spots in one pass, instead of after the first playtest. In our production project, a plan for five goals up to about 165 m away generates in 0.9 s. Every stage is covered by automated headless tests in the editor.',
-        chapters: [{ label: 'Build by hand', t: 0 }, { label: 'Four biomes', t: 23 }, { label: 'Generate and analyse', t: 48 }],
+        chapters: [{ label: 'Build by hand', t: 0 }, { label: 'Ceilings, beams, swaps', t: 23 }, { label: 'Four biomes', t: 35 }, { label: 'Generate and analyse', t: 61 }],
         details: [
           { head: 'Build', points: [
             'Corridors as graphs: per-segment widths, one-sided widenings, closed ends and doors into rooms.',
