@@ -704,9 +704,10 @@ class Component extends DCLogic {
         details: [
           { head: 'Build', points: [
             'Corridors as graphs: per-segment widths, one-sided widenings, closed ends and doors into rooms.',
-            'Rooms from chains of modular walls, with doors, pilasters, beams and raised ceilings.',
-            'A 2D plan: two clicks sketch a room, dragging a wall resizes it, clicking it adds a door. Analyses already run on the plan, and Build plan turns it into modules.',
-            'A plan library: save a layout and load it into another level without overwriting anything already built.'
+            'Rooms from chains of modular walls, with doors and pilasters; ceilings over corridors and rooms, raised where a space should open up.',
+            'Beams with columns set into both walls: at a click, at every widening step, or every few metres along a straight.',
+            'A swap palette: replace modules by hand in rooms and corridors, including several selected modules for one.',
+            'A 2D plan: two clicks sketch a room, dragging a wall resizes it, clicking it adds a door; Build plan turns it into modules, and a plan library carries layouts to other levels.'
           ] },
           { head: 'Dress', points: [
             'Decorations by zones and styles, every placement seeded; manual overrides survive a rebuild.',
