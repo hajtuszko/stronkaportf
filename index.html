@@ -742,13 +742,28 @@ class Component extends DCLogic {
         solution: 'Reads the seams from the material maps (AO, cavity, roughness, normal) and cuts the plane into real planks (in rows or herringbone), tiles, bricks or stones with UVs preserved. Then a terrain mesh or a scenario tears them: moisture bulge, collapse into a hole, blast crater. Details add splinters, cracks, nails and burn or rot; effects cover cracking ice and peeling carpet.',
         result: 'Game-ready output: UVs kept, no n-gons, extra loops only where a piece actually bends. Live preview, and the tearing can be baked to shape keys.',
         link: LINKS.rupture, linkLabel: 'View on GitHub' },
-      { title: 'Axis Extrude', platform: 'Blender 4.2+ · Python', status: 'Open source',
-        media: '[ demo gif · 16:10 ]',
-        pitch: 'Click-to-extrude modeling for plans, elevations and sections. Hover an edge and click: it extrudes to the cursor along the world axis, with snapping, guides and 10 cm steps.',
-        problem: 'Architectural blockouts in Blender mean constant switching between extrude, grab and loop cut, with values typed in by hand.',
-        solution: 'Hover an edge and click: it extrudes to the cursor along the world axis. Works in top, front and side views, snaps to vertices, aligns with dashed guides, moves vertices in 10 cm steps and adds a loop cut with a click inside a face.',
-        result: 'Walls and simple architecture blocked out with the mouse alone, without breaking the flow.',
-        link: LINKS.extrude, linkLabel: 'View on GitHub' },
+      { title: 'TrimKit', platform: 'Windows · Python · Blender · Substance Painter · UE5', status: 'In development',
+        media: '[ demo · 16:10 ]', video: './assets/trimkit.mp4', poster: './assets/trimkit-poster.jpg',
+        mediaAlt: 'TrimKit demo: the logo, a sci-fi wall module modelled to strip heights, its faces shown in strip ID colours, the module rendered from one 4K trim sheet, a bolt panel strip resized from 25 to 37.5 cm with the UVs following, and the sheet editor',
+        pitch: 'A trim sheet IDE for environment artists: one sheet layout drives the kit’s UVs, bakes and textures. Change a strip’s height and every module’s UVs follow.',
+        problem: 'Once a trim-based kit is unwrapped, making one panel taller can mean re-laying UVs on hundreds of modules, so layouts get frozen early, often before you know which trims the kit needs. And no tool holds one description of the sheet that everything else is derived from.',
+        solution: 'The sheet layout, authored in centimetres with texel density and a mip-safe grid, is the single source of truth. Every face of a module remembers which strip it sits on and where along it, so UVs are an output, not manual work.',
+        result: 'When the layout changes, UVs are recomputed by themselves, even in kit files that aren’t open, and textures refresh only where a strip actually changed. The prototype works end to end on a demo project, from layout through bakes to the Unreal import.',
+        details: [
+          { head: 'Works today (prototype)', points: [
+            'Sheet editor in centimetres, snapping to the mip grid, with revisions and a live preview in Blender.',
+            'Trim application on meshes: face loops, rectangles, auto-fit, a pie menu in Blender, decals and unique patches.',
+            'Bake and texturing loop: high/low strips generated from the layout, baking in Cycles or Painter, PBR preview.',
+            '51 pre-export checks with BC compression and mip-bleed inspection; export for UE5 and Unity with channel packing.'
+          ] },
+          { head: 'In development', points: [
+            'A standalone app with its own modeling engine built around trims; Blender and Painter become optional connectors.',
+            'The sheet in 3D, high-poly modeling sized to the strip, and GPU baking re-run only for the strip you changed.',
+            'Groundwork: 76 algorithm write-ups, and a first viewport test drawing 200k faces in about 0.3 ms per frame on an RTX 4080.',
+            'TrimKit is a working title.'
+          ] }
+        ],
+        link: '', linkLabel: '' },
       { title: 'Dungeon Generator', platform: 'Web · JavaScript', status: 'Live demo',
         media: '[ live demo · 16:10 ]', image: './assets/dungeon-generator.jpg',
         mediaAlt: 'Dungeon Generator: a generated layout of rooms and corridors with its 100/100 score breakdown',
